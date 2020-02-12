@@ -1,0 +1,12 @@
+<div style="margin-top: 70px">
+  <div class="container">
+    <div class="row">
+      <ngx-dhis2-selection-filters
+        (update)="onFilterUpdateAction($event)"
+        [dataSelections]="dataSelections"
+        [selectionFilterConfig]="selectionFilterConfig"
+      >
+      </ngx-dhis2-selection-filters>
+    </div>
+  </div>
+</div>
