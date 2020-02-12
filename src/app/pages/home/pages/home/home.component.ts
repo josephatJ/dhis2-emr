@@ -16,6 +16,15 @@ export class HomeComponent implements OnInit {
     disableValidationRuleGroupFilter: true
   };
 
+  reports = [
+    { name: 'report1', id: 'xyz1' },
+    { name: 'report2', id: 'xyz2' },
+    { name: 'report3', id: 'xyz3' },
+    { name: 'report4', id: 'xyz4' },
+    { name: 'report5', id: 'xyz5' },
+    { name: 'report6', id: 'xyz6' }
+  ];
+
   dataSelections = [];
 
   constructor(private store: Store<any>) {}
