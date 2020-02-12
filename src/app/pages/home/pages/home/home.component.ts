@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { updateSelection } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +18,22 @@ export class HomeComponent implements OnInit {
 
   dataSelections = [];
 
-  constructor() {}
+  constructor(private store: Store<any>) {}
 
   ngOnInit() {}
 
-  onFilterUpdateAction(x) {
-    console.log('event logged ::: ', x);
+  onFilterUpdateAction(filterSelections) {
+    console.log('event logged ::: ', filterSelections);
+
+    if (filterSelections.length == 2) {
+      this.store.dispatch(
+        updateSelection({
+          Selection: {
+            orgUnit: filterSelections[1].items[0].id,
+            period: filterSelections[0].items[0].id
+          }
+        })
+      );
+    }
   }
 }
