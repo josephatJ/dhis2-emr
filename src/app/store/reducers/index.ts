@@ -8,19 +8,22 @@ import { UserState } from '../states/user.state';
 import { systemInfoReducer } from './system-info.reducer';
 import { userReducer } from './user.reducer';
 import { selectionReducer } from './selection.reducer';
+import { reportsReducer } from './report.reducers';
 
 export interface State {
   user: UserState;
   systemInfo: SystemInfoState;
   router: RouterReducerState;
   selection: any;
+  reports: {};
 }
 
 export const reducers: ActionReducerMap<State> = {
   user: userReducer,
   systemInfo: systemInfoReducer,
   router: routerReducer,
-  selection: selectionReducer
+  selection: selectionReducer,
+  reports: reportsReducer
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
