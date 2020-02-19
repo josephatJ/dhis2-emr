@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { updateSelection, loadedReports } from 'src/app/store/actions';
+import {
+  updateSelection,
+  loadedReports,
+  setCurrentReport
+} from 'src/app/store/actions';
 import { ReportsService } from '../../../../services/reports.service';
+import { Observable } from 'rxjs';
+import {
+  getReportListState,
+  getCurrentReportState
+} from 'src/app/store/selectors';
+import { async } from 'q';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +27,8 @@ export class HomeComponent implements OnInit {
     disableValidationRuleGroupFilter: true
   };
 
-  reports = [
-    { name: 'report1', id: 'xyz1' },
-    { name: 'report2', id: 'xyz2' },
-    { name: 'report3', id: 'xyz3' },
-    { name: 'report4', id: 'xyz4' },
-    { name: 'report5', id: 'xyz5' },
-    { name: 'report6', id: 'xyz6' }
-  ];
+  reportsList$: Observable<Array<any>>;
+  reportSelected$: Observable<String>;
 
   dataSelections = [];
 
@@ -34,11 +38,17 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.store.select(getReportListState).subscribe(reportList => {
+      this.reportsList$ = reportList;
+    });
+
+    this.store.select(getCurrentReportState).subscribe(report => {
+      this.reportSelected$ = report;
+    });
+
     //on init outsource reports service to fetch reports names and push to store
     this.reportService.getReports().subscribe(
       reports => {
-        console.log('reports Loaded:::', reports);
-
         //fire action to store in reports list on store
         this.store.dispatch(
           loadedReports({
@@ -53,8 +63,6 @@ export class HomeComponent implements OnInit {
   }
 
   onFilterUpdateAction(filterSelections) {
-    console.log('event logged ::: ', filterSelections);
-
     //fire action to store selection only is selectionsArray.length > 2
     if (filterSelections.length == 2) {
       this.store.dispatch(
@@ -66,5 +74,23 @@ export class HomeComponent implements OnInit {
         })
       );
     }
+  }
+
+  selectReport(report) {
+    //console.log(report);
+    this.store.dispatch(
+      setCurrentReport({
+        CurrentReport: report
+      })
+    );
+  }
+
+  getReportTemplate() {
+    //console.log(this.reportSelected$)
+    this.reportService
+      .getReportTemplate(this.reportSelected$)
+      .subscribe(reportTemplate => {
+        console.log(reportTemplate);
+      });
   }
 }

@@ -20,6 +20,7 @@ import { NgxDhis2OrgUnitFilterModule } from '@iapps/ngx-dhis2-org-unit-filter';
 import { NgxDhis2DataFilterModule } from '@iapps/ngx-dhis2-data-filter';
 import { NgxDhis2PeriodFilterModule } from '@iapps/ngx-dhis2-period-filter';
 import { NgxDhis2SelectionFiltersModule } from '@iapps/ngx-dhis2-selection-filters';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { NgxDhis2SelectionFiltersModule } from '@iapps/ngx-dhis2-selection-filte
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
-    NgxDhis2SelectionFiltersModule
+    NgxDhis2SelectionFiltersModule,
+    MatListModule
   ],
   exports: [
     MatButtonModule,
@@ -63,7 +65,8 @@ import { NgxDhis2SelectionFiltersModule } from '@iapps/ngx-dhis2-selection-filte
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
-    NgxDhis2SelectionFiltersModule
+    NgxDhis2SelectionFiltersModule,
+    MatListModule
   ],
   declarations: []
 })
