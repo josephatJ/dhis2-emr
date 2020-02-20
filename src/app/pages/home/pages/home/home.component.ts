@@ -12,6 +12,7 @@ import {
   getCurrentReportState
 } from 'src/app/store/selectors';
 import { async } from 'q';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -29,12 +30,12 @@ export class HomeComponent implements OnInit {
 
   reportsList$: Observable<Array<any>>;
   reportSelected$: Observable<String>;
-
-  dataSelections = [];
+  htmlTemplate: string;
 
   constructor(
     private reportService: ReportsService,
-    private store: Store<any>
+    private store: Store<any>,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -78,6 +79,7 @@ export class HomeComponent implements OnInit {
 
   selectReport(report) {
     //console.log(report);
+
     this.store.dispatch(
       setCurrentReport({
         CurrentReport: report
@@ -87,10 +89,14 @@ export class HomeComponent implements OnInit {
 
   getReportTemplate() {
     //console.log(this.reportSelected$)
-    this.reportService
-      .getReportTemplate(this.reportSelected$)
-      .subscribe(reportTemplate => {
-        console.log(reportTemplate);
-      });
+    // this.reportService
+    //   .getReportTemplate(this.reportSelected$)
+    //   .subscribe(reportTemplate => {
+    //     console.log(reportTemplate);
+
+    //     this.htmlTemplate = reportTemplate.htmlString;
+    //   });
+
+    this.router.navigate(['/report', this.reportSelected$]);
   }
 }
