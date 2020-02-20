@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ReportsService } from 'src/app/services/reports.service';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-report',
@@ -9,9 +11,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ReportComponent implements OnInit {
   id: string;
-  htmlTemplate: string;
+  htmlTemplate: SafeHtml;
+  customElements: any;
+  reportRendered: Boolean = false;
+  htmlTemplate$: Observable<any>;
 
   constructor(
+    private sanitizer: DomSanitizer,
     private reportsService: ReportsService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -19,20 +25,6 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.params['id'];
 
-    this.reportsService.getReportTemplate(this.id).subscribe(
-      reportTemplate => {
-        console.log(reportTemplate);
-        this.htmlTemplate = reportTemplate.htmlString;
-
-        this.getElemsForAnalytics();
-      },
-      error => {
-        //handle request error
-      }
-    );
-  }
-
-  getElemsForAnalytics() {
-    console.log(document.getElementsByClassName('custom-elem'));
+    this.htmlTemplate$ = this.reportsService.getReportTemplate(this.id);
   }
 }

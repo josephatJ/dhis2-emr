@@ -13,7 +13,7 @@ export class ReportsService {
     return this.http.get('dataStore/report-templates');
   }
 
-  getReportTemplate(report: Observable<String>) {
-    return this.http.get('dataStore/report-templates/' + report);
+  getReportTemplate(reportId: string): Observable<any> {
+    return this.http.get('dataStore/report-templates/' + reportId);
   }
 }
