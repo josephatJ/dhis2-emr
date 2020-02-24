@@ -3,7 +3,8 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { getElementDetails } from 'src/app/core/helpers/htmlHelpers';
 import {
   fetchFavourite,
-  fetchFunctionsData
+  fetchFunctionsData,
+  renderAnalyticsData
 } from 'src/app/core/helpers/reportHelpers';
 import { Store } from '@ngrx/store';
 import { getOrgUnitState, getPeriodState } from 'src/app/store/selectors';
@@ -69,6 +70,7 @@ export class RenderCustomReportComponent implements OnInit {
           )
           .subscribe(data => {
             console.log('datareceived :: ', data);
+            renderAnalyticsData(dataToFetch['id'], data.rows[0][2]);
           });
       } else if (dataToFetch['category'] == 'favorites') {
         //fetch favourites data

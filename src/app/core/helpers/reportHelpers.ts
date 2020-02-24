@@ -13,3 +13,7 @@ export function fetchFavourite(
 export function fetchFunctionsData() {
   console.log('fetching functions data ');
 }
+
+export function renderAnalyticsData(id: string, value: string) {
+  document.getElementById(id).innerHTML = '<span>' + value + '</span>';
+}
