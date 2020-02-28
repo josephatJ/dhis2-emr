@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgxDhis2HttpClientService } from '@iapps/ngx-dhis2-http-client';
 import { Observable } from 'rxjs';
+import { VisualizerComponent } from '../pages/home/pages/report/containers/visualizer/visualizer.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,15 @@ export class ReportsService {
         '&filter=ou:' +
         orgUnit
     );
+  }
+
+  fetchFavourite(favoriteId: string, favoriteType: string) {
+    this.http
+      .get(favoriteType + '/' + favoriteId)
+      .subscribe(favouriteConfigs => {
+        console.log('favourite configs :: ', favouriteConfigs);
+      });
+
+    document.getElementById(favoriteId);
   }
 }

@@ -74,11 +74,9 @@ export class RenderCustomReportComponent implements OnInit {
           });
       } else if (dataToFetch['category'] == 'favorites') {
         //fetch favourites data
-        fetchFavourite(
+        this.reportsService.fetchFavourite(
           dataToFetch['id'],
-          dataToFetch['type'],
-          this.orgUnit$,
-          this.period$
+          dataToFetch['type']
         );
       } else if (dataToFetch['category'] == 'functions') {
         //handle data fetched from functions
