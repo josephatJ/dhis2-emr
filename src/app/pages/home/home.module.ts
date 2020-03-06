@@ -9,7 +9,12 @@ import { RenderCustomReportComponent } from './pages/report/containers/render-cu
 import { VisualizerComponent } from './pages/report/containers/visualizer/visualizer.component';
 
 @NgModule({
-  declarations: [...pages, ReportComponent, RenderCustomReportComponent, VisualizerComponent],
+  declarations: [
+    ...pages,
+    ReportComponent,
+    RenderCustomReportComponent,
+    VisualizerComponent
+  ],
   imports: [CommonModule, SharedModule, HomeRoutingModule]
 })
 export class HomeModule {}

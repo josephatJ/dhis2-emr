@@ -2,9 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { getElementDetails } from 'src/app/core/helpers/htmlHelpers';
 import {
-  fetchFavourite,
   fetchFunctionsData,
-  renderAnalyticsData
+  renderAnalyticsData,
+  processConfigs,
+  renderFavorite,
+  getFavouriteDataDimensions
 } from 'src/app/core/helpers/reportHelpers';
 import { Store } from '@ngrx/store';
 import { getOrgUnitState, getPeriodState } from 'src/app/store/selectors';
@@ -60,11 +62,12 @@ export class RenderCustomReportComponent implements OnInit {
   fetchDataBasedOnConfigs(arrayForAnalytics: Array<{}>) {
     _.each(arrayForAnalytics, (dataToFetch: {}) => {
       if (dataToFetch['category'] == 'defaultMetadata') {
-        //fetch analytics data
+        //  fetch analytics data
         this.reportsService
           .fetchDataByAnalytics(
             dataToFetch['id'],
-            dataToFetch['type'],
+            // tslint:disable-next-line: comment-format
+            //dataToFetch['type'],
             this.orgUnit$,
             this.period$
           )
@@ -73,13 +76,34 @@ export class RenderCustomReportComponent implements OnInit {
             renderAnalyticsData(dataToFetch['id'], data.rows[0][2]);
           });
       } else if (dataToFetch['category'] == 'favorites') {
-        //fetch favourites data
-        this.reportsService.fetchFavourite(
-          dataToFetch['id'],
-          dataToFetch['type']
-        );
+        //  fetch favourites data
+        this.reportsService
+          .fetchFavourite(dataToFetch['id'], dataToFetch['type'])
+          .subscribe(favouriteConfigs => {
+            // tslint:disable-next-line: prefer-const
+            let favouriteDataDimensions = getFavouriteDataDimensions(
+              favouriteConfigs,
+              this.orgUnit$,
+              this.period$
+            );
+
+            this.reportsService
+              .fetchDataByAnalytics(
+                favouriteDataDimensions,
+                this.orgUnit$,
+                this.period$
+              )
+              .subscribe(data => {
+                // tslint:disable-next-line: prefer-const
+                let options = processConfigs(favouriteConfigs, data);
+
+                renderFavorite(dataToFetch['id'], options);
+              });
+
+            // prepareAnalyticsUrl(favouriteConfigs);
+          });
       } else if (dataToFetch['category'] == 'functions') {
-        //handle data fetched from functions
+        //  handle data fetched from functions
         fetchFunctionsData();
       }
     });

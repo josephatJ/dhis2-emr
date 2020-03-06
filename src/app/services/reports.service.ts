@@ -19,10 +19,12 @@ export class ReportsService {
 
   fetchDataByAnalytics(
     dataid: string,
-    datatype: string,
+    //datatype: string,
     orgUnit: Observable<string>,
     period: Observable<string>
   ) {
+    console.log('id:', dataid, ' & period:', period, ' & orgUnit:', orgUnit);
+
     return this.http.get(
       'analytics?dimension=dx:' +
         dataid +
@@ -34,12 +36,6 @@ export class ReportsService {
   }
 
   fetchFavourite(favoriteId: string, favoriteType: string) {
-    this.http
-      .get(favoriteType + '/' + favoriteId)
-      .subscribe(favouriteConfigs => {
-        console.log('favourite configs :: ', favouriteConfigs);
-      });
-
-    document.getElementById(favoriteId);
+    return this.http.get(favoriteType + '/' + favoriteId);
   }
 }

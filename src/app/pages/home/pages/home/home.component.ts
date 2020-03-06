@@ -13,6 +13,7 @@ import {
 } from 'src/app/store/selectors';
 import { async } from 'q';
 import { Router } from '@angular/router';
+import { SelectionFilterConfig } from '@iapps/ngx-dhis2-selection-filters';
 
 @Component({
   selector: 'app-home',
@@ -21,11 +22,12 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   pageEvent: any;
-  selectionFilterConfig = {
+  selectionFilterConfig: SelectionFilterConfig = {
     showDataFilter: false,
     disableDataFilter: true,
     showValidationRuleGroupFilter: false,
-    disableValidationRuleGroupFilter: true
+    disableValidationRuleGroupFilter: true,
+    orgUnitFilterConfig: { singleSelection: true, reportUse: false }
   };
 
   reportsList$: Observable<Array<any>>;
