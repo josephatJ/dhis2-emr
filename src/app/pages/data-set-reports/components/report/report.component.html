@@ -1,0 +1,8 @@
+<div *ngIf="dataSetReport$ | async" id="data_set_report_id">
+  <app-render-data-set-report
+    [reportHtml]="(dataSetReport$ | async)?.reportHtml"
+  ></app-render-data-set-report>
+</div>
+<div *ngIf="!(dataSetReport$ | async)">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
