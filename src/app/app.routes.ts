@@ -15,6 +15,13 @@ export const routes: Routes = [
       import('./pages/data-set-reports/data-set-reports.module').then(
         m => m.DataSetReportsModule
       )
+  },
+  {
+    path: 'reporting-rates',
+    loadChildren: () =>
+      import(
+        './pages/reporting-rates-summary/reporting-rates-summary.module'
+      ).then(m => m.ReportingRatesSummaryModule)
   }
 ];
 
