@@ -9,10 +9,14 @@ import {
   getFavouriteDataDimensions
 } from 'src/app/core/helpers/reportHelpers';
 import { Store } from '@ngrx/store';
-import { getOrgUnitState, getPeriodState } from 'src/app/store/selectors';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { ReportsService } from 'src/app/services/reports.service';
+import {
+  getOrgUnitState,
+  getPeriodState
+} from 'src/app/pages/standard-report/store/selectors';
+import { ReportsService } from 'src/app/pages/standard-report/services/reports.service';
+import { addAnalyticsToVisualizationLayer } from 'src/app/core/helpers/formatAnalytics';
 
 @Component({
   selector: 'app-render-custom-report',
@@ -26,7 +30,8 @@ export class RenderCustomReportComponent implements OnInit {
   arrayForAnalytics: Array<{}>;
   orgUnit$: Observable<string>;
   period$: Observable<string>;
-
+  x: {};
+  favId: string;
   constructor(
     private store: Store<any>,
     private sanitizer: DomSanitizer,
@@ -40,13 +45,15 @@ export class RenderCustomReportComponent implements OnInit {
       console.log('ng on init ' + JSON.stringify(e));
     }
 
-    this.store.select(getOrgUnitState).subscribe(orgunit => {
+    this.store.select(getOrgUnitState).subscribe((orgunit: any) => {
       this.orgUnit$ = orgunit;
     });
 
-    this.store.select(getPeriodState).subscribe(period => {
+    this.store.select(getPeriodState).subscribe((period: any) => {
       this.period$ = period;
     });
+
+    //console.log(this.orgUnit$, '-------------------', this.period$);
   }
 
   ngAfterViewInit() {
@@ -77,14 +84,12 @@ export class RenderCustomReportComponent implements OnInit {
           });
       } else if (dataToFetch['category'] == 'favorites') {
         //  fetch favourites data
+
         this.reportsService
           .fetchFavourite(dataToFetch['id'], dataToFetch['type'])
           .subscribe(favouriteConfigs => {
-            // tslint:disable-next-line: prefer-const
             let favouriteDataDimensions = getFavouriteDataDimensions(
-              favouriteConfigs,
-              this.orgUnit$,
-              this.period$
+              favouriteConfigs
             );
 
             this.reportsService
@@ -95,6 +100,14 @@ export class RenderCustomReportComponent implements OnInit {
               )
               .subscribe(data => {
                 // tslint:disable-next-line: prefer-const
+                this.favId = dataToFetch['id'];
+                this.x = addAnalyticsToVisualizationLayer(
+                  data,
+                  favouriteConfigs
+                );
+
+                console.log('unformatted data ::: ', data);
+                console.log('formatted analytics ::: ', this.x);
                 let options = processConfigs(favouriteConfigs, data);
 
                 renderFavorite(dataToFetch['id'], options);

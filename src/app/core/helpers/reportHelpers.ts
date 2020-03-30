@@ -1,16 +1,10 @@
 import * as _ from 'lodash';
 import * as Highcharts from 'highcharts';
-import { Observable } from 'rxjs';
+import { cleanFavouriteData } from './favouriteHelpers';
 
-export function fetchFunctionsData() {
-  console.log('fetching functions data ');
-}
+export function fetchFunctionsData() {}
 
-export function getFavouriteDataDimensions(
-  configs: any,
-  ou: Observable<string>,
-  pe: Observable<string>
-) {
+export function getFavouriteDataDimensions(configs: any) {
   let Items = [];
   configs.dataDimensionItems.forEach(dataDimensionItem => {
     Items.push(
@@ -54,31 +48,23 @@ export function processConfigs(
   let options;
   let categories: Array<string> = [];
   if (favouriteConfigurations.category == 'ou') {
-    categories.push(
-      favouriteData.metaData.items[favouriteData.metaData.dimensions.ou].name
-    );
+    _.each(favouriteData.metaData.dimensions.ou, ou => {
+      categories.push(favouriteData.metaData.items[ou].name);
+    });
   } else if (favouriteConfigurations.category == 'pe') {
-    categories.push(favouriteData.metaData.items.pe.name);
+    _.each(favouriteData.metaData.dimensions.pe, pe => {
+      categories.push(favouriteData.metaData.items[pe].name);
+    });
   } else if (favouriteConfigurations.category == 'dx') {
-  }
-
-  let data: Array<{}> = [];
-  if (favouriteConfigurations.series == 'dx') {
-    favouriteData.metaData.dimensions.dx.forEach(dx => {
-      let dxArray: [] = [];
-      console.log(
-        dx + ' ::',
-        _.filter(favouriteData.rows, data => {
-          return data[0] == dx ? true : false;
-        })
-      );
-
-      data.push({
-        name: favouriteData.metaData.items[dx].name,
-        data: dxArray
-      });
+    _.each(favouriteData.metaData.dimensions.dx, dx => {
+      categories.push(favouriteData.metaData.items[dx].name);
     });
   }
+
+  let data: Array<{}> = cleanFavouriteData(
+    favouriteConfigurations,
+    favouriteData
+  );
 
   switch (favouriteConfigurations.type) {
     case 'COLUMN':
@@ -87,7 +73,7 @@ export function processConfigs(
           type: 'column'
         },
         title: {
-          text: favouriteConfigurations.displayName.toLowerCase()
+          text: favouriteConfigurations.displayName
         },
         subtitle: {
           text: ''
@@ -99,7 +85,7 @@ export function processConfigs(
         yAxis: {
           min: 0,
           title: {
-            text: 'Rainfall (mm)'
+            text: ''
           }
         },
         tooltip: {
@@ -107,7 +93,7 @@ export function processConfigs(
             '<span style="font-size:10px">{point.key}</span><table>',
           pointFormat:
             '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
           footerFormat: '</table>',
           shared: true,
           useHTML: true

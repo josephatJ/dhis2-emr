@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ReportsService } from 'src/app/services/reports.service';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { ReportsService } from '../../services/reports.service';
 
 @Component({
   selector: 'app-report',

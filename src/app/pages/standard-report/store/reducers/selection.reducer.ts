@@ -1,14 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { updateSelection } from '../actions/selection.actions';
-
-export const selectionInitialState = {
-  orgUnit: '',
-  period: ''
-};
+import { initialSelectionState } from '../states/selection.state';
 
 export const reducer = createReducer(
-  selectionInitialState,
+  initialSelectionState,
   on(updateSelection, (state, { Selection }) => ({
+    ...state,
     orgUnit: Selection.orgUnit,
     period: Selection.period
   }))

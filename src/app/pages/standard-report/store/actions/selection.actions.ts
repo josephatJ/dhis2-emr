@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { selection } from '../models/selections.model';
+import { selection } from 'src/app/store/models/selections.model';
 
 export enum SelectionActionTypes {
   UpdateSelection = '[Selection] Update Selection'
