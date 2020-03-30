@@ -57,18 +57,6 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataSets$ = this.store.select(getLoadedDataSets);
-    this.dataSetReport$.subscribe(report => {
-      if (report) {
-        this.report = report;
-        try {
-          this.safeReportHtml = this.sanitizer.bypassSecurityTrustHtml(
-            this.report
-          );
-        } catch (e) {
-          console.log('ng on init ' + JSON.stringify(e));
-        }
-      }
-    });
   }
 
   getDataSet(dataSetId) {
