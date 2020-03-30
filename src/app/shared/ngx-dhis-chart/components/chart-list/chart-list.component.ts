@@ -7,7 +7,6 @@ import {
   EventEmitter
 } from '@angular/core';
 import * as _ from 'lodash';
-import { ChartItemComponent } from '../chart-item/chart-item.component';
 import { getChartConfiguration } from '../../helpers';
 
 @Component({
@@ -32,9 +31,6 @@ export class ChartListComponent implements OnInit {
   @Output()
   updateChartVisualizationLayer: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild(ChartItemComponent, { static: false })
-  chartItem: ChartItemComponent;
-
   constructor() {}
 
   ngOnInit() {
@@ -52,18 +48,6 @@ export class ChartListComponent implements OnInit {
           };
         }
       );
-    }
-  }
-
-  onParentEvent(parentEvent) {
-    if (this.chartItem) {
-      // this.chartItem.onFocus(parentEvent);
-    }
-  }
-
-  onDownloadEvent(downloadFormat) {
-    if (this.chartItem) {
-      this.chartItem.downloadChart(downloadFormat);
     }
   }
 
