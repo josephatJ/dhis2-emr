@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { ReportsService } from '../../services/reports.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { SelectionFilterConfig } from '@iapps/ngx-dhis2-selection-filters';
 import * as _ from 'lodash';
 import {
   getReportListState,
@@ -22,13 +21,24 @@ import {
 })
 export class HomeComponent implements OnInit {
   pageEvent: any;
-  selectionFilterConfig: SelectionFilterConfig = {
+  selectionFilterConfig: any = {
     showDataFilter: false,
-    disableDataFilter: true,
-    showValidationRuleGroupFilter: false,
-    disableValidationRuleGroupFilter: true,
-    orgUnitFilterConfig: { singleSelection: true, reportUse: false }
+    showPeriodFilter: true,
+    showOrgUnitFilter: true,
+    showLayout: false,
+    showFilterButton: false,
+    orgUnitFilterConfig: {
+      singleSelection: true,
+      showUserOrgUnitSection: false,
+      showOrgUnitLevelGroupSection: false,
+      showOrgUnitGroupSection: false,
+      showOrgUnitLevelSection: false,
+      reportUse: false,
+      additionalQueryFields: [],
+      batchSize: 400
+    }
   };
+  selectedOrgUnitItems: Array<any> = [];
 
   reportsList$: Observable<Array<any>>;
   reportSelected$: Observable<String>;

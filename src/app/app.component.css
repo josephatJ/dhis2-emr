@@ -1,3 +1,13 @@
 .application-content {
-  margin-top: 50px;
+  margin-top: 70px;
+}
+
+.reports-list {
+  padding: 0px;
+}
+
+.reports-list li {
+  cursor: pointer;
+  list-style: none;
+  padding: 5px;
 }

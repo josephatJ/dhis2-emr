@@ -19,9 +19,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgxDhis2OrgUnitFilterModule } from '@iapps/ngx-dhis2-org-unit-filter';
 import { NgxDhis2DataFilterModule } from '@iapps/ngx-dhis2-data-filter';
 import { NgxDhis2PeriodFilterModule } from '@iapps/ngx-dhis2-period-filter';
-import { NgxDhis2SelectionFiltersModule } from '@iapps/ngx-dhis2-selection-filters';
 import { MatListModule } from '@angular/material/list';
-import { NgxDhis2ChartModule } from './ngx-dhis-chart/ngx-dhis2-chart.module';
+import { modules } from './modules';
 
 @NgModule({
   imports: [
@@ -44,9 +43,8 @@ import { NgxDhis2ChartModule } from './ngx-dhis-chart/ngx-dhis2-chart.module';
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
-    NgxDhis2SelectionFiltersModule,
     MatListModule,
-    NgxDhis2ChartModule
+    ...modules
   ],
   exports: [
     MatButtonModule,
@@ -67,9 +65,8 @@ import { NgxDhis2ChartModule } from './ngx-dhis-chart/ngx-dhis2-chart.module';
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
-    NgxDhis2SelectionFiltersModule,
     MatListModule,
-    NgxDhis2ChartModule
+    ...modules
   ],
   declarations: []
 })
