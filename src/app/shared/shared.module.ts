@@ -21,6 +21,7 @@ import { NgxDhis2DataFilterModule } from '@iapps/ngx-dhis2-data-filter';
 import { NgxDhis2PeriodFilterModule } from '@iapps/ngx-dhis2-period-filter';
 import { NgxDhis2SelectionFiltersModule } from '@iapps/ngx-dhis2-selection-filters';
 import { MatListModule } from '@angular/material/list';
+import { NgxDhis2ChartModule } from './ngx-dhis-chart/ngx-dhis2-chart.module';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { MatListModule } from '@angular/material/list';
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
     NgxDhis2SelectionFiltersModule,
-    MatListModule
+    MatListModule,
+    NgxDhis2ChartModule
   ],
   exports: [
     MatButtonModule,
@@ -66,7 +68,8 @@ import { MatListModule } from '@angular/material/list';
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
     NgxDhis2SelectionFiltersModule,
-    MatListModule
+    MatListModule,
+    NgxDhis2ChartModule
   ],
   declarations: []
 })
