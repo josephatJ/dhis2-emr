@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'standard-reports',
     loadChildren: () =>
       import('./pages/standard-report/standard-report.module').then(
         m => m.StandardReportModule

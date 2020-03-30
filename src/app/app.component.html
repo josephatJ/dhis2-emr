@@ -2,16 +2,29 @@
 
 <div class="application-content continer-fluid">
   <div class="row" style="margin-left: 0px;margin-right: 0px;">
-    <div class="col-3">
+    <div class="col-2">
       <ul class="reports-list">
-        <li routerLink="">Standard Report</li>
-        <li routerLink="datasets-reports">Dataset Report</li>
-        <li routerLink="reporting-rates-summary">Reporting Rate Summary</li>
-        <li routerLink="resources">Resources</li>
-        <li routerLink="organisation-units">Organisation Units Report</li>
+        <li routerLink="standard-reports" routerLinkActive="active-route">
+          Standard Report
+        </li>
+        <li routerLink="datasets-reports" routerLinkActive="active-route">
+          Dataset Report
+        </li>
+        <li
+          routerLink="reporting-rates-summary"
+          routerLinkActive="active-route"
+        >
+          Reporting Rate Summary
+        </li>
+        <li routerLink="resources" routerLinkActive="active-route">
+          Resources
+        </li>
+        <li routerLink="organisation-units" routerLinkActive="active-route">
+          Organisation Units Report
+        </li>
       </ul>
     </div>
-    <div class="col-9">
+    <div class="col-10">
       <router-outlet></router-outlet>
     </div>
   </div>
