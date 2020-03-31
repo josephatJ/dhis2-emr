@@ -9,6 +9,7 @@ import { StandardReportRoutingModule } from './standard-report-routing.module';
 import { reducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/effects';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [...pages, ReportComponent, RenderCustomReportComponent],
@@ -16,6 +17,7 @@ import { effects } from './store/effects';
     CommonModule,
     SharedModule,
     StandardReportRoutingModule,
+    MatSelectModule,
     ...reducers,
     EffectsModule.forFeature(effects)
   ]

@@ -1,4 +1,4 @@
-<div *ngIf="htmlTemplate$ | async" class="container">
+<div *ngIf="htmlTemplate$ | async">
   <div>
     <app-render-custom-report
       [htmlCodes]="(htmlTemplate$ | async)['htmlString']"

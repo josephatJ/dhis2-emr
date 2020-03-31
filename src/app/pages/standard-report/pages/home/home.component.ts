@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectReport(report) {
-    //console.log(report);
+    console.log(report);
 
     this.store.dispatch(
       setCurrentReport({
@@ -93,15 +93,6 @@ export class HomeComponent implements OnInit {
   }
 
   getReportTemplate() {
-    //console.log(this.reportSelected$)
-    // this.reportService
-    //   .getReportTemplate(this.reportSelected$)
-    //   .subscribe(reportTemplate => {
-    //     console.log(reportTemplate);
-
-    //     this.htmlTemplate = reportTemplate.htmlString;
-    //   });
-
     this.router.navigate(['/report', this.reportSelected$]);
   }
 }

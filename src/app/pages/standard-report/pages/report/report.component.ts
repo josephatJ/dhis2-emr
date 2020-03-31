@@ -20,10 +20,18 @@ export class ReportComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private reportsService: ReportsService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.activatedRoute.params.subscribe(params => {
+      console.log('params ::: ', params);
+
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.params['id'];
+
+    //console.log('new route ::: ', this.id);
 
     this.htmlTemplate$ = this.reportsService.getReportTemplate(this.id);
   }

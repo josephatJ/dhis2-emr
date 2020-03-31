@@ -1,21 +1,38 @@
 <div class="container-fluid" style="padding-top: 7px">
   <div class="row">
-    <div class="col-md-2">
-      <mat-list role="list">
+    <div class="col-md-12">
+      <div
+        *ngIf="(reportsList$ | async)['length'] == 0"
+        style="text-align: center"
+      >
+        <p style="padding:5px;">loading reports...</p>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+
+      <mat-form-field *ngIf="(reportsList$ | async)['length'] > 0">
+        <mat-label>Select Report</mat-label>
+        <mat-select>
+          <mat-option
+            *ngFor="let report of reportsList$ | async"
+            [value]="report"
+            (click)="selectReport(report)"
+          >
+            {{ report }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-list role="list">
         <mat-list-item
           (click)="selectReport(report)"
           *ngFor="let report of reportsList$ | async"
           role="listitem"
           >{{ report }}</mat-list-item
         >
-      </mat-list>
-    </div>
+      </mat-list> -->
 
-    <div class="col-md-10">
       <ngx-dhis2-selection-filters
-        (update)="onFilterUpdateAction($event)"
+        (filterUpdate)="onFilterUpdateAction($event)"
         [selectionFilterConfig]="selectionFilterConfig"
-        style="margin-left: auto; margin-right: auto;"
       >
       </ngx-dhis2-selection-filters>
       <button mat-raised-button (click)="getReportTemplate()">
@@ -25,3 +42,5 @@
   </div>
   <!--{{ reportsList$ | async | json }}-->
 </div>
+
+<router-outlet></router-outlet>
