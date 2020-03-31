@@ -12,3 +12,13 @@
   list-style: none;
   padding: 5px;
 }
+
+.active-route {
+  padding: 0px;
+  outline: none;
+  font-size: 14px;
+  font-weight: 700;
+  position: relative;
+  background-color: rgb(224, 224, 224);
+  color: rgb(33, 150, 243);
+}

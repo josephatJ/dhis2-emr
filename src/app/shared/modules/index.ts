@@ -1,3 +1,8 @@
 import { SelectionFiltersModule } from './selection-filters/selection-filters.module';
 import { NgxDhis2ChartModule } from './ngx-dhis-chart/ngx-dhis2-chart.module';
-export const modules: any[] = [SelectionFiltersModule, NgxDhis2ChartModule];
+import { NgxDhis2TableModule } from './ngx-dhis2-table/ngx-dhis2-table.module';
+export const modules: any[] = [
+  SelectionFiltersModule,
+  NgxDhis2ChartModule,
+  NgxDhis2TableModule
+];

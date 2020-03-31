@@ -9,7 +9,7 @@
         style="width: 100%; padding: 8px;"
         (change)="getDataSet($event.target.value)"
       >
-        <option value="">Select data set</option>
+        <option value="">Select Dataset</option>
         <option
           [value]="dataSet.id"
           *ngFor="let dataSet of dataSets$ | async"
@@ -27,7 +27,8 @@
         <option
           [value]="dataSetDimension.id"
           *ngFor="let dataSetDimension of dataSetDimensions$ | async"
-          >{{ dataSetDimension.displayName }}</option
+        >
+          {{ dataSetDimension.displayName }}</option
         >
       </select>
     </div>
@@ -53,8 +54,9 @@
   "
 >
   <app-report
-    [dataSetId]="dataSetId"
+    [selectedDataSet]="selectedDataSet"
     [currentUser]="currentUser$ | async"
     [filterSelections]="filterSelections"
-  ></app-report>
+  >
+  </app-report>
 </div>

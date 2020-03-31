@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'standard-reports',
     loadChildren: () =>
       import('./pages/standard-report/standard-report.module').then(
         m => m.StandardReportModule
@@ -15,6 +15,13 @@ export const routes: Routes = [
       import('./pages/data-set-reports/data-set-reports.module').then(
         m => m.DataSetReportsModule
       )
+  },
+  {
+    path: 'reporting-rates',
+    loadChildren: () =>
+      import(
+        './pages/reporting-rates-summary/reporting-rates-summary.module'
+      ).then(m => m.ReportingRatesSummaryModule)
   }
 ];
 
