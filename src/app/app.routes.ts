@@ -3,6 +3,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadChildren: () =>
+      import('./pages/middle-menu/middle-menu.module').then(
+        m => m.MiddleMenuModule
+      )
+  },
+  {
     path: 'standard-reports',
     loadChildren: () =>
       import('./pages/standard-report/standard-report.module').then(
@@ -22,6 +29,18 @@ export const routes: Routes = [
       import(
         './pages/reporting-rates-summary/reporting-rates-summary.module'
       ).then(m => m.ReportingRatesSummaryModule)
+  },
+  {
+    path: 'organisation-units-distribution',
+    loadChildren: () =>
+      import(
+        './pages/organisation-units-distribution/organisation-units-distribution.module'
+      ).then(m => m.OrganisationUnitsDistributionModule)
+  },
+  {
+    path: 'resources',
+    loadChildren: () =>
+      import('./pages/resources/resources.module').then(m => m.ResourcesModule)
   }
 ];
 
