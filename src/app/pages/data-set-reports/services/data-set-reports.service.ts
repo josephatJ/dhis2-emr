@@ -8,21 +8,34 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataSetReportsService {
   getDataSetReport(dimension): Observable<any> {
-    return this.httpClient.get(
-      'api/dataSetReport/custom?filter=&ds=' +
-        dimension.dx +
-        '&pe=' +
-        dimension.pe +
-        '&ou=' +
-        dimension.ou +
-        '&selectedUnitOnly=false',
-      {
-        headers: {
-          'Content-Type': 'text/html;charset=ISO-8859-1'
-        },
-        responseType: 'text'
-      }
-    );
+    console.log('dimension', dimension);
+    if (dimension.ds.formType == 'CUSTOM') {
+      return this.httpClient.get(
+        'api/dataSetReport/custom?filter=&ds=' +
+          dimension.dx +
+          '&pe=' +
+          dimension.pe +
+          '&ou=' +
+          dimension.ou +
+          '&selectedUnitOnly=false',
+        {
+          headers: {
+            'Content-Type': 'text/html;charset=ISO-8859-1'
+          },
+          responseType: 'text'
+        }
+      );
+    } else {
+      return this.dhis2HttpClient.get(
+        'dataSetReport?filter=&ds=' +
+          dimension.dx +
+          '&pe=' +
+          dimension.pe +
+          '&ou=' +
+          dimension.ou +
+          '&selectedUnitOnly=false'
+      );
+    }
   }
 
   getDataSetDimensions(dataSetId): Observable<any> {
@@ -33,5 +46,8 @@ export class DataSetReportsService {
     );
   }
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private dhis2HttpClient: NgxDhis2HttpClientService
+  ) {}
 }

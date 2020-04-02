@@ -57,6 +57,7 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataSets$ = this.store.select(getLoadedDataSets);
+    this.selectionChanged = true;
   }
 
   getDataSet(dataSetId) {
@@ -117,7 +118,7 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
       this.selectionChanged$.next({
         changed: true
       });
-    }, 1000);
+    }, 100);
     this.filterSelections = selections;
     console.log('selections', selections);
   }
