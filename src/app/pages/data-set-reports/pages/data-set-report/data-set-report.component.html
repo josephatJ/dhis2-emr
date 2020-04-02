@@ -6,7 +6,7 @@
     <div style="width: 20%; float: left;">
       <select
         class="mat-stroked-button"
-        style="width: 100%; padding: 8px;"
+        style="width: 100%; padding: 8px; font-weight: 400"
         (change)="getDataSet($event.target.value)"
       >
         <option value="">Select data set</option>
@@ -20,7 +20,7 @@
     </div>
     <div style="width: 20%; float: left;" *ngIf="dataSetDimensions$ | async">
       <select
-        style="width: 100%; padding: 8px;"
+        style="width: 100%; padding: 8px; font-weight: 400"
         (change)="getDataSetDimension($event.target.value)"
       >
         <option value="">Select Dimension</option>
