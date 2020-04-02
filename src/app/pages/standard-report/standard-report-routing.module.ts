@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    children: [{ path: 'report/:id', component: ReportComponent }]
+    children: [{ path: ':id', component: ReportComponent }]
   }
 ];
 

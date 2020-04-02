@@ -93,6 +93,6 @@ export class HomeComponent implements OnInit {
   }
 
   getReportTemplate() {
-    this.router.navigate(['/report', this.reportSelected$]);
+    this.router.navigate(['/standard-reports', this.reportSelected$]);
   }
 }
