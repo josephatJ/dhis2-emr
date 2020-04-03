@@ -1,7 +1,7 @@
 <div style="height:100vh;background-color: #FFF;">
   <div class="row" style="padding: 10px">
     <div class="col-12 report-header">
-      <h3>Datasets reports</h3>
+      <h3>Reporting rates summary</h3>
       <hr style="margin: 0" />
     </div>
 
@@ -59,13 +59,17 @@
   </div>
   <div
     *ngIf="
-      (currentUser$ | async) && filterSelections && filterSelections.length > 1
+      (currentUser$ | async) &&
+      filterSelections &&
+      filterSelections.length > 1 &&
+      (ouWithChildren$ | async)
     "
   >
     <app-report
       [selectedDataSet]="selectedDataSet"
       [currentUser]="currentUser$ | async"
       [filterSelections]="filterSelections"
+      [ouWithChildren]="ouWithChildren$ | async"
     >
     </app-report>
   </div>

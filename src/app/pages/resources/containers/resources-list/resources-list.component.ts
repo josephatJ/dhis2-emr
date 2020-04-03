@@ -9,7 +9,7 @@ export class ResourcesListComponent implements OnInit {
   @Input() resources: Array<any>;
   @Input() currentUser: any;
   page: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 5;
   constructor() {}
 
   ngOnInit(): void {}
@@ -19,5 +19,13 @@ export class ResourcesListComponent implements OnInit {
   }
   onCurrentPageUpdate(e) {
     this.page = e;
+  }
+
+  openResource(document) {
+    if (document.external) {
+      window.open(document.url, '_blank');
+    } else {
+      window.open('../../../api/documents/' + document.id + '/data', '_blank');
+    }
   }
 }
