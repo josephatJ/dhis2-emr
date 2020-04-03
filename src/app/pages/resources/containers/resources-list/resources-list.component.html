@@ -25,8 +25,12 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>download</mat-icon>
+              <button mat-menu-item *ngIf="!resource.external">
+                <mat-icon>cloud_download</mat-icon>
+                <span>Download</span>
+              </button>
+              <button mat-menu-item *ngIf="resource.external">
+                <mat-icon>link</mat-icon>
                 <span>Download</span>
               </button>
             </mat-menu>
