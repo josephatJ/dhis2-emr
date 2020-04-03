@@ -1,0 +1,10 @@
+.report-header {
+  padding: 5px 10px 0 10px;
+  text-align: left;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.filters {
+  padding: 15px;
+}

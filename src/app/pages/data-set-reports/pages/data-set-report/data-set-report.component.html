@@ -1,7 +1,15 @@
-<div style="height: calc(100vh - 48px);background-color: #FFF;">
-  <div class="row" style="margin-top: 7px">
+<div style="height:100vh;background-color: #FFF;">
+  <div class="row" style="padding: 10px">
+    <div class="col-12 report-header">
+      <h3>Datasets reports</h3>
+      <hr style="margin: 0" />
+    </div>
+
+    <div *ngIf="!(dataSets$ | async)">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
     <div
-      class="col-12"
+      class="col-12 filters"
       *ngIf="(dataSets$ | async) && (dataSets$ | async).length > 0"
     >
       <div style="width: 20%; float: left;">
@@ -10,7 +18,7 @@
           style="width: 100%; padding: 8px; font-weight: 400"
           (change)="getDataSet($event.target.value)"
         >
-          <option value="">Select data set</option>
+          <option value="">Select dataset</option>
           <option
             [value]="dataSet.id"
             *ngFor="let dataSet of dataSets$ | async"

@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div style="height: 100vh;background-color: #FFF;">
+  <div class="report-header">
+    <h3>Resources</h3>
+    <hr style="margin: 0" />
+  </div>
+  <div *ngIf="(resources$ | async) && (currentUser$ | async)">
+    <app-resources-list
+      [resources]="resources$ | async"
+      [currentUser]="currentUser$ | async"
+    ></app-resources-list>
+  </div>
+</div>
+<div *ngIf="!(resources$ | async)">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
