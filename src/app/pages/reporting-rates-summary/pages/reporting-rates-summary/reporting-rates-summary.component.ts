@@ -3,8 +3,15 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/store/reducers';
 import { Observable, Subject } from 'rxjs';
 import { getCurrentUser } from 'src/app/store/selectors';
-import { loadDataSetDimensions, loadDataSets } from '../../store/actions';
-import { getLoadedDataSets } from '../../store/selectors';
+import {
+  loadDataSetDimensions,
+  loadDataSets,
+  loadOuWithChildren
+} from '../../store/actions';
+import {
+  getLoadedDataSets,
+  getOuWithChildrenById
+} from '../../store/selectors';
 import { getDataSetDimensionsByDataSetId } from '../../store/selectors/datasets-dimensions.selectors';
 import * as _ from 'lodash';
 
@@ -41,6 +48,7 @@ export class ReportingRatesSummaryComponent implements OnInit {
   selectionChanged: boolean = false;
   dataSetDimensions$: Observable<any>;
   selectedDataSet: any;
+  ouWithChildren$: Observable<any>;
   constructor(private store: Store<State>) {
     this.currentUser$ = this.store.select(getCurrentUser);
     this.currentUser$.subscribe(currentUser => {
@@ -73,7 +81,6 @@ export class ReportingRatesSummaryComponent implements OnInit {
   }
 
   onFilterUpdate(selections) {
-    console.log(this.dataSetId);
     this.selectionChanged = false;
     setTimeout(() => {
       this.selectionChanged = true;
@@ -82,6 +89,15 @@ export class ReportingRatesSummaryComponent implements OnInit {
       });
     }, 1000);
     this.filterSelections = selections;
+    const ouId = _.filter(selections, { dimension: 'ou' })[0]
+      ? _.filter(selections, { dimension: 'ou' })[0]['items'][0]['id']
+      : null;
+    if (ouId) {
+      this.store.dispatch(loadOuWithChildren({ ouId }));
+      this.ouWithChildren$ = this.store.select(getOuWithChildrenById, {
+        id: ouId
+      });
+    }
     console.log('selections', selections);
   }
 }

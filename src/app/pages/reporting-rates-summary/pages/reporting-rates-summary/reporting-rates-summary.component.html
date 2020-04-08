@@ -1,62 +1,76 @@
-<div class="row" style="margin-top: 7px">
-  <div
-    class="col-12"
-    *ngIf="(dataSets$ | async) && (dataSets$ | async).length > 0"
-  >
-    <div style="width: 20%; float: left;">
-      <select
-        class="mat-stroked-button"
-        style="width: 100%; padding: 8px;"
-        (change)="getDataSet($event.target.value)"
-      >
-        <option value="">Select Dataset</option>
-        <option
-          [value]="dataSet.id"
-          *ngFor="let dataSet of dataSets$ | async"
-          >{{ dataSet.name }}</option
-        >
-      </select>
-      <!-- {{ dataSets$ | async | json }} -->
+<div style="height:100vh;background-color: #FFF;">
+  <div class="row" style="padding: 10px">
+    <div class="col-12 report-header">
+      <h3>Reporting rates summary</h3>
+      <hr style="margin: 0" />
     </div>
-    <div style="width: 20%; float: left;" *ngIf="dataSetDimensions$ | async">
-      <select
-        style="width: 100%; padding: 8px;"
-        (change)="getDataSetDimension($event.target.value)"
-      >
-        <option value="">Select Dimension</option>
-        <option
-          [value]="dataSetDimension.id"
-          *ngFor="let dataSetDimension of dataSetDimensions$ | async"
-        >
-          {{ dataSetDimension.displayName }}</option
-        >
-      </select>
+
+    <div *ngIf="!(dataSets$ | async)">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-    <div style="width: 40%; float: left;" *ngIf="dataSetId">
-      <ngx-dhis2-selection-filters
-        [selectionFilterConfig]="selectionFilterConfig"
-        (filterUpdate)="onFilterUpdate($event)"
-      >
-      </ngx-dhis2-selection-filters>
+    <div
+      class="col-12  filters"
+      *ngIf="(dataSets$ | async) && (dataSets$ | async).length > 0"
+    >
+      <div style="width: 20%; float: left;">
+        <select
+          class="mat-stroked-button"
+          style="width: 100%; padding: 8px;"
+          (change)="getDataSet($event.target.value)"
+        >
+          <option value="">Select dataset</option>
+          <option
+            [value]="dataSet.id"
+            *ngFor="let dataSet of dataSets$ | async"
+            >{{ dataSet.name }}</option
+          >
+        </select>
+        <!-- {{ dataSets$ | async | json }} -->
+      </div>
+      <div style="width: 20%; float: left;" *ngIf="dataSetDimensions$ | async">
+        <select
+          style="width: 100%; padding: 8px;"
+          (change)="getDataSetDimension($event.target.value)"
+        >
+          <option value="">Select Dimension</option>
+          <option
+            [value]="dataSetDimension.id"
+            *ngFor="let dataSetDimension of dataSetDimensions$ | async"
+          >
+            {{ dataSetDimension.displayName }}</option
+          >
+        </select>
+      </div>
+      <div style="width: 40%; float: left;" *ngIf="dataSetId">
+        <ngx-dhis2-selection-filters
+          [selectionFilterConfig]="selectionFilterConfig"
+          (filterUpdate)="onFilterUpdate($event)"
+        >
+        </ngx-dhis2-selection-filters>
+      </div>
+    </div>
+    <div
+      class="col-12"
+      style="margin-top: 50px"
+      *ngIf="!(dataSets$ | async) && (dataSets$ | async).length == 0"
+    >
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
   </div>
   <div
-    class="col-12"
-    style="margin-top: 50px"
-    *ngIf="!(dataSets$ | async) && (dataSets$ | async).length == 0"
+    *ngIf="
+      (currentUser$ | async) &&
+      filterSelections &&
+      filterSelections.length > 1 &&
+      (ouWithChildren$ | async)
+    "
   >
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <app-report
+      [selectedDataSet]="selectedDataSet"
+      [currentUser]="currentUser$ | async"
+      [filterSelections]="filterSelections"
+      [ouWithChildren]="ouWithChildren$ | async"
+    >
+    </app-report>
   </div>
-</div>
-<div
-  *ngIf="
-    (currentUser$ | async) && filterSelections && filterSelections.length > 1
-  "
->
-  <app-report
-    [selectedDataSet]="selectedDataSet"
-    [currentUser]="currentUser$ | async"
-    [filterSelections]="filterSelections"
-  >
-  </app-report>
 </div>

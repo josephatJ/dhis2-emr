@@ -6,8 +6,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./render-reporting-rates.component.css']
 })
 export class RenderReportingRatesComponent implements OnInit {
-  @Input() analytics: any;
+  @Input() visualizationLayers: any;
+  page: number = 1;
+  itemsPerPage: number = 5;
   constructor() {}
 
   ngOnInit(): void {}
+
+  onUpdatePageSize(e) {
+    this.itemsPerPage = e;
+  }
+  onCurrentPageUpdate(e) {
+    this.page = e;
+  }
 }

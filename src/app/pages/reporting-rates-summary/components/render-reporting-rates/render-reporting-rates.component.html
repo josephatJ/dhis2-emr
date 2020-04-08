@@ -1,1 +1,43 @@
-<p>render-reporting-rates works!</p>
+<div *ngIf="visualizationLayers && visualizationLayers.length > 0">
+  <div
+    class="row w-100 mx-0"
+    *ngFor="let visualizationLayer of visualizationLayers"
+  >
+    <mat-card class="w-100 mb-4 p-0">
+      <!-- <div class="card w-100 mb-4"> -->
+      <table class="table w-100 table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Organisation unit / Data</th>
+            <th
+              *ngFor="let header of visualizationLayer['analytics']['headers']"
+            >
+              {{ header.name }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let ou of visualizationLayer['analytics']['metaData']['ou'];
+              let i = index;
+              trackBy: trackByFn
+            "
+          >
+            <td>
+              {{ visualizationLayer['analytics']['metaData']['names'][ou] }}
+            </td>
+            <td
+              *ngFor="let header of visualizationLayer['analytics']['headers']"
+            >
+              {{
+                visualizationLayer['analytics']['rows'][ou + '-' + header.id]
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- </div> -->
+    </mat-card>
+  </div>
+</div>

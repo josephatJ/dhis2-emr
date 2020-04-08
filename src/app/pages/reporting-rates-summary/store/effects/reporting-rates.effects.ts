@@ -31,7 +31,8 @@ export class ReportingRatesEffects {
                   action.dimensions.ou,
                 visualizationLayers: addAnalyticsToVisualizationLayer(
                   sanitizeAnalytics(reportingRatesReport),
-                  action.dataSet
+                  action.dataSet,
+                  'TABLE'
                 )
               }
             });

@@ -1,4 +1,8 @@
-<div *ngIf="dataSetReport$ | async" id="data_set_report_id">
+<div
+  *ngIf="dataSetReport$ | async"
+  id="data_set_report_id"
+  class="custom-report"
+>
   <app-render-data-set-report
     [reportHtml]="(dataSetReport$ | async)?.reportHtml"
   ></app-render-data-set-report>

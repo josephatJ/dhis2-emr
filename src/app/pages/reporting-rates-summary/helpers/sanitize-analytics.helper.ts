@@ -2,7 +2,10 @@ import * as _ from 'lodash';
 
 export function sanitizeAnalytics(analytics) {
   let newAnalytics = {
-    headers: analytics['headers'],
+    headers: formatHeaders(
+      analytics['headers'],
+      analytics['metaData']['dimensions']['dx']
+    ),
     metaData: {
       names: getNames(
         analytics['metaData']['dimensions'],
@@ -14,9 +17,38 @@ export function sanitizeAnalytics(analytics) {
       ou: analytics['metaData']['dimensions']['ou'],
       co: analytics['metaData']['dimensions']['co']
     },
-    rows: analytics['rows']
+    rows: formatRowsData(
+      analytics['rows'],
+      analytics['metaData']['dimensions']['ou'],
+      analytics['metaData']['dimensions']['dx']
+    )
   };
   return newAnalytics;
+}
+
+function formatRowsData(rows, ous, dxs) {
+  let dataFormatted = {};
+  _.map(ous, (ou, rowIndex) => {
+    _.map(dxs, (dx, columnIndex) => {
+      dataFormatted[ou + '-' + dx] = rows[rowIndex][columnIndex + 4];
+    });
+  });
+  return dataFormatted;
+}
+
+function formatHeaders(headers, dx) {
+  let newHeaders = [];
+  _.map(dx, (columElem, index) => {
+    newHeaders.push({
+      name: headers[index + 4].name,
+      id: columElem,
+      valueType: headers[index + 4].valueType,
+      type: headers[index + 4].type,
+      hidden: headers[index + 4].hidden,
+      meta: headers[index + 4].meta
+    });
+  });
+  return newHeaders;
 }
 
 function getNames(dimensions, items) {
@@ -36,7 +68,11 @@ function getNames(dimensions, items) {
   return names;
 }
 
-export function addAnalyticsToVisualizationLayer(analytics, dataSet) {
+export function addAnalyticsToVisualizationLayer(
+  analytics,
+  dataSet,
+  visualizationType
+) {
   let layerConfig = {
     id: dataSet['id'],
     analytics: analytics,
@@ -53,12 +89,13 @@ export function addAnalyticsToVisualizationLayer(analytics, dataSet) {
       sortOrder: 0,
       topLimit: 0,
       aggregationType: 'DEFAULT',
-      visualizationType: 'CHART',
+      visualizationType: visualizationType,
       hideTitle: false
     },
     layout: {
-      rows: ['pe'],
-      columns: ['dx']
+      rows: ['ou'],
+      columns: ['dx'],
+      filters: ['pe']
     },
     preferedChartTypes: []
   };

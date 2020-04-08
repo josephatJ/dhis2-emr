@@ -8,6 +8,7 @@ import {
 } from '../../helpers';
 import { Observable } from 'rxjs';
 import { getDataSetReportById } from '../../store/selectors/dataset-report.selectors';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-report',
@@ -20,13 +21,15 @@ export class ReportComponent implements OnInit {
   @Input() filterSelections: any;
   dimensions: any;
   dataSetReport$: Observable<any>;
+  @Input() dataSets: any;
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
     if (this.filterSelections) {
       this.dimensions = createSelectionDimensions(
         this.filterSelections,
-        this.dataSetId
+        this.dataSetId,
+        _.filter(this.dataSets, { id: this.dataSetId })[0]
       );
       this.store.dispatch(
         loadDataSetReport({

@@ -8,6 +8,7 @@ import {
 } from '../actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { formatReportByDataSetType } from '../../helpers/get-formatted-report.helper';
 
 @Injectable()
 export class DataSetReportEffects {
@@ -16,7 +17,7 @@ export class DataSetReportEffects {
       ofType(loadDataSetReport),
       switchMap(action =>
         this.dataSetReportService.getDataSetReport(action.dimensions).pipe(
-          map(dataSetReport => {
+          map(dataSetReportAnalytics => {
             return addLoadedDataSetReport({
               dataSetReport: {
                 id:
@@ -25,7 +26,10 @@ export class DataSetReportEffects {
                   action.dimensions.pe +
                   '-' +
                   action.dimensions.ou,
-                reportHtml: dataSetReport
+                reportHtml: formatReportByDataSetType(
+                  action.dimensions.ds,
+                  dataSetReportAnalytics
+                )
               }
             });
           }),

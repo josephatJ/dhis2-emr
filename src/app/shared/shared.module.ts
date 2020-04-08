@@ -20,7 +20,11 @@ import { NgxDhis2OrgUnitFilterModule } from '@iapps/ngx-dhis2-org-unit-filter';
 import { NgxDhis2DataFilterModule } from '@iapps/ngx-dhis2-data-filter';
 import { NgxDhis2PeriodFilterModule } from '@iapps/ngx-dhis2-period-filter';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { modules } from './modules';
+import { sharedComponents } from './components';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -43,7 +47,10 @@ import { modules } from './modules';
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
+    MatIconModule,
+    MatMenuModule,
     MatListModule,
+    NgxPaginationModule,
     ...modules
   ],
   exports: [
@@ -65,9 +72,13 @@ import { modules } from './modules';
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
+    MatIconModule,
     MatListModule,
-    ...modules
+    MatMenuModule,
+    NgxPaginationModule,
+    ...modules,
+    ...sharedComponents
   ],
-  declarations: []
+  declarations: [...sharedComponents]
 })
 export class SharedModule {}

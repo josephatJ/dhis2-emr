@@ -8,6 +8,7 @@ import {
 } from '../../helpers';
 import { loadDataSetReportingRates } from '../../store/actions';
 import { getReportingRatesVisualizationLayersById } from '../../store/selectors/reporting-rates.selectors';
+import { getOrgUnitLoaded } from '@iapps/ngx-dhis2-org-unit-filter';
 
 @Component({
   selector: 'app-report',
@@ -18,6 +19,7 @@ export class ReportComponent implements OnInit {
   @Input() currentUser: any;
   @Input() selectedDataSet: string;
   @Input() filterSelections: any;
+  @Input() ouWithChildren: any;
   dimensions: any;
   reportingRatesVisualizationLayers$: Observable<any>;
   constructor(private store: Store<State>) {}
@@ -26,7 +28,8 @@ export class ReportComponent implements OnInit {
     if (this.filterSelections) {
       this.dimensions = createSelectionDimensions(
         this.filterSelections,
-        this.selectedDataSet['id']
+        this.selectedDataSet['id'],
+        this.ouWithChildren
       );
       this.store.dispatch(
         loadDataSetReportingRates({
