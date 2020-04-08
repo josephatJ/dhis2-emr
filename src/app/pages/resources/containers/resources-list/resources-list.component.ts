@@ -9,7 +9,7 @@ export class ResourcesListComponent implements OnInit {
   @Input() resources: Array<any>;
   @Input() currentUser: any;
   page: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   constructor() {}
 
   ngOnInit(): void {}

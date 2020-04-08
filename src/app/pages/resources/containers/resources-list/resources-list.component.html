@@ -11,9 +11,14 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let resource of resources; let i = index; trackBy: trackByFn"
+          *ngFor="
+            let resource of resources
+              | paginate: { itemsPerPage: itemsPerPage, currentPage: page };
+            let i = index;
+            trackBy: trackByFn
+          "
         >
-          <td>{{ i + 1 }}</td>
+          <td>{{ i + 10 * (page - 1) + 1 }}</td>
           <td>{{ resource.displayName }}</td>
           <td>
             ​

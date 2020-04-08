@@ -10,7 +10,7 @@ export class ReportsListComponent implements OnInit {
   @Input() reports: Array<any>;
   @Input() currentUser: any;
   page: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
