@@ -1,14 +1,14 @@
-<div *ngIf="!resources || resources.length == 0">
+<div *ngIf="!reports || reports.length == 0">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<div class="row w-100 mx-0" *ngIf="resources && resources.length > 0">
+<div class="row w-100 mx-0" *ngIf="reports && reports.length > 0">
   <input
     id="searching-input"
     placeholder="Search "
     [(ngModel)]="searchingItem"
   />
 </div>
-<div class="row w-100 mx-0" *ngIf="resources && resources.length > 0">
+<div class="row w-100 mx-0" *ngIf="reports && reports.length > 0">
   <mat-card class="w-100 mb-4 p-0">
     <!-- <div class="card w-100 mb-4"> -->
     <table class="table w-100 table-hover table-striped">
@@ -22,40 +22,28 @@
       <tbody>
         <tr
           *ngFor="
-            let resource of resources
-              | filterByInputText: searchingItem
+            let report of reports
+              | filterByName: searchingItem
               | paginate: { itemsPerPage: itemsPerPage, currentPage: page };
             let i = index;
             trackBy: trackByFn
           "
         >
           <td>{{ i + 10 * (page - 1) + 1 }}</td>
-          <td>{{ resource.displayName }}</td>
+          <td>{{ report.displayName }}</td>
           <td>
             ​
             <button
               mat-icon-button
               [matMenuTriggerFor]="menu"
-              matTooltip="More actions on resource"
+              matTooltip="More actions on report"
             >
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button
-                mat-menu-item
-                *ngIf="!resource.external"
-                (click)="openResource(resource)"
-              >
-                <mat-icon>cloud_download</mat-icon>
-                <span>Download</span>
-              </button>
-              <button
-                mat-menu-item
-                *ngIf="resource.external"
-                (click)="openResource(resource)"
-              >
-                <mat-icon>link</mat-icon>
-                <span>Download</span>
+              <button routerLink="{{ report.id }}" mat-menu-item>
+                <mat-icon>create</mat-icon>
+                <span>Create</span>
               </button>
             </mat-menu>
           </td>
@@ -69,8 +57,8 @@
               [pageInterval]="itemsPerPage"
               [pageIntervalFactor]="1"
               [currentPage]="page"
-              [dataArray]="resources | filterByInputText: searchingItem"
-              [maxSize]="resources.length"
+              [dataArray]="reports | filterByName: searchingItem"
+              [maxSize]="reports.length"
               (changeCurrentPage)="onCurrentPageUpdate($event)"
               (updateItemsPerPage)="onUpdatePageSize($event)"
             >

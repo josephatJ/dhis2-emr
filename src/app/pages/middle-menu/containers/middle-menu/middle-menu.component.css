@@ -19,3 +19,7 @@
 .card-btn h4 {
   font-family: Roboto, sans-serif;
 }
+
+.card-btn {
+  height: 180px !important;
+}

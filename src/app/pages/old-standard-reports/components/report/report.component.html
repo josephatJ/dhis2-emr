@@ -1,0 +1,33 @@
+<div *ngIf="!(reportMetadata$ | async)" style="margin-top: 10px">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div style="height:100vh;background-color: #FFF;">
+  <div class="row" style="padding: 10px" *ngIf="reportMetadata$ | async">
+    <div class="col-12" style="margin-bottom: 10px">
+      <h3>{{ (reportMetadata$ | async)?.name }}</h3>
+      <hr style="margin: 0" />
+    </div>
+    <div class="col-12 filters">
+      <ngx-dhis2-selection-filters
+        [selectionFilterConfig]="selectionFilterConfig"
+        (filterUpdate)="onFilterUpdate($event)"
+      >
+      </ngx-dhis2-selection-filters>
+    </div>
+    <div
+      class="col-12"
+      style="width: 100% !important;"
+      *ngIf="filterSelections && filterSelections.length > 1"
+    >
+      <div style="margin-bottom: 10px"></div>
+      <div *ngIf="selectionChanged">
+        <app-render-report
+          [reportHtml]="(reportMetadata$ | async)?.designContent"
+          [filterSelections]="filterSelections"
+        >
+        </app-render-report>
+      </div>
+    </div>
+  </div>
+</div>

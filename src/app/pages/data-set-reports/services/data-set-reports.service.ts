@@ -11,7 +11,7 @@ export class DataSetReportsService {
     console.log('dimension', dimension);
     if (dimension.ds.formType == 'CUSTOM') {
       return this.httpClient.get(
-        'api/dataSetReport/custom?filter=&ds=' +
+        '../../../api/dataSetReport/custom?filter=&ds=' +
           dimension.dx +
           '&pe=' +
           dimension.pe +

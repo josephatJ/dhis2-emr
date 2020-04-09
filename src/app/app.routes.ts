@@ -17,6 +17,13 @@ export const routes: Routes = [
       )
   },
   {
+    path: 'old-standard-reports',
+    loadChildren: () =>
+      import('./pages/old-standard-reports/old-standard-reports.module').then(
+        m => m.OldStandardReportsModule
+      )
+  },
+  {
     path: 'datasets-reports',
     loadChildren: () =>
       import('./pages/data-set-reports/data-set-reports.module').then(
