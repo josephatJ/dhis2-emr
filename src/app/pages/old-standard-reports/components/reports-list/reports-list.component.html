@@ -2,6 +2,13 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <div class="row w-100 mx-0" *ngIf="reports && reports.length > 0">
+  <input
+    id="searching-input"
+    placeholder="Search "
+    [(ngModel)]="searchingItem"
+  />
+</div>
+<div class="row w-100 mx-0" *ngIf="reports && reports.length > 0">
   <mat-card class="w-100 mb-4 p-0">
     <!-- <div class="card w-100 mb-4"> -->
     <table class="table w-100 table-hover table-striped">
@@ -16,6 +23,7 @@
         <tr
           *ngFor="
             let report of reports
+              | filterByName: searchingItem
               | paginate: { itemsPerPage: itemsPerPage, currentPage: page };
             let i = index;
             trackBy: trackByFn
@@ -49,7 +57,7 @@
               [pageInterval]="itemsPerPage"
               [pageIntervalFactor]="1"
               [currentPage]="page"
-              [dataArray]="reports"
+              [dataArray]="reports | filterByName: searchingItem"
               [maxSize]="reports.length"
               (changeCurrentPage)="onCurrentPageUpdate($event)"
               (updateItemsPerPage)="onUpdatePageSize($event)"

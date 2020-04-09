@@ -9,15 +9,25 @@ import { ReportsListComponent } from './components/reports-list/reports-list.com
 import { ReportComponent } from './components/report/report.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RenderReportComponent } from './components/render-report/render-report.component';
+import { FormsModule } from '@angular/forms';
+import { FilterByNamePipe } from 'src/app/core/pipes';
 
 @NgModule({
-  declarations: [HomeComponent, ReportsListComponent, ReportComponent, RenderReportComponent],
+  declarations: [
+    HomeComponent,
+    ReportsListComponent,
+    ReportComponent,
+    RenderReportComponent,
+    FilterByNamePipe
+  ],
   imports: [
     CommonModule,
+    FormsModule,
     OldStandardReportRoutingModule,
     ...reducers,
     EffectsModule.forFeature(effects),
     SharedModule
-  ]
+  ],
+  providers: []
 })
 export class OldStandardReportsModule {}

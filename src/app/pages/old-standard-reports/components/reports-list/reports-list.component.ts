@@ -11,6 +11,7 @@ export class ReportsListComponent implements OnInit {
   @Input() currentUser: any;
   page: number = 1;
   itemsPerPage: number = 10;
+  searchingItem: string = '';
   constructor(private router: Router) {}
 
   ngOnInit(): void {}

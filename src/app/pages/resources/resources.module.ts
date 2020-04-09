@@ -7,11 +7,14 @@ import { reducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/effects';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { FilterByInputTextPipe } from './pipes';
 
 @NgModule({
-  declarations: [HomeComponent, ResourcesListComponent],
+  declarations: [HomeComponent, ResourcesListComponent, FilterByInputTextPipe],
   imports: [
     CommonModule,
+    FormsModule,
     ResourcesRoutingModule,
     SharedModule,
     ...reducers,

@@ -25,7 +25,7 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
     var iframe = document.createElement('iframe');
     iframe.style.border = 'none';
     iframe.style.width = '100%';
-    iframe.style.height = '90vh';
+    iframe.style.minHeight = '100vh';
     iframe.setAttribute('id', 'iframe_id');
     var ctnr = document.getElementById('html_id');
     ctnr.appendChild(iframe);

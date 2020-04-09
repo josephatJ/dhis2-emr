@@ -1,7 +1,13 @@
 <div *ngIf="!resources || resources.length == 0">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-
+<div class="row w-100 mx-0" *ngIf="resources && resources.length > 0">
+  <input
+    id="searching-input"
+    placeholder="Search "
+    [(ngModel)]="searchingItem"
+  />
+</div>
 <div class="row w-100 mx-0" *ngIf="resources && resources.length > 0">
   <mat-card class="w-100 mb-4 p-0">
     <!-- <div class="card w-100 mb-4"> -->
@@ -17,6 +23,7 @@
         <tr
           *ngFor="
             let resource of resources
+              | filterByInputText: searchingItem
               | paginate: { itemsPerPage: itemsPerPage, currentPage: page };
             let i = index;
             trackBy: trackByFn
@@ -62,7 +69,7 @@
               [pageInterval]="itemsPerPage"
               [pageIntervalFactor]="1"
               [currentPage]="page"
-              [dataArray]="resources"
+              [dataArray]="resources | filterByInputText: searchingItem"
               [maxSize]="resources.length"
               (changeCurrentPage)="onCurrentPageUpdate($event)"
               (updateItemsPerPage)="onUpdatePageSize($event)"

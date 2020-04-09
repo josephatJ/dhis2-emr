@@ -22,6 +22,7 @@ import { RoutingModule } from './app.routes';
 import { CoreModule, RouteSerializer } from './core';
 import { effects } from './store/effects';
 import { metaReducers, reducers } from './store/reducers';
+import { FormsModule } from '@angular/forms';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
