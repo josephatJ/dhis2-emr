@@ -18,10 +18,13 @@
           (click)="toggleOrgUnitFilter($event)"
         >
           <i class="fa fa-sitemap"></i>
-          <span *ngIf="!selectedOu">Org unit filter</span>
-          <span *ngIf="selectedOu && selectedOu.name">{{
-            selectedOu?.name
-          }}</span>
+          <span>Org unit</span>
+          <span
+            style="margin-left: 5px"
+            class="badge badge-secondary"
+            *ngIf="selectedOu && selectedOu.name"
+            >{{ selectedOu?.name }}</span
+          >
           &nbsp;
           <!-- <i
             [ngClass]="orgUnitFilterSet ? 'fa fa-caret-up' : 'fa fa-caret-down'"
