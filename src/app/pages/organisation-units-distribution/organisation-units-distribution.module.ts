@@ -7,9 +7,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/effects';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReportComponent } from './components/report/report.component';
+import { VisualizationComponent } from './components/visualization/visualization.component';
 
 @NgModule({
-  declarations: [HomeComponent, ReportComponent],
+  declarations: [HomeComponent, ReportComponent, VisualizationComponent],
   imports: [
     CommonModule,
     OrganisationUnitsDistributionRoutingModule,

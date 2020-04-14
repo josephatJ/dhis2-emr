@@ -17,7 +17,15 @@ export class OrgUnitsDistributionEffects {
       switchMap(action =>
         this.ouDistributionService.getOuDistribution(action.ouDimensions).pipe(
           map(orgUniDistribution =>
-            addLoadedDataForOrgUnitDistribution({ orgUniDistribution })
+            addLoadedDataForOrgUnitDistribution({
+              orgUniDistribution: {
+                id:
+                  action.ouDimensions.ous.join('-') +
+                  '-' +
+                  action.ouDimensions.distributionType,
+                data: orgUniDistribution
+              }
+            })
           ),
           catchError(error => of(loadingOuDistributionFails({ error })))
         )

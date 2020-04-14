@@ -13,11 +13,15 @@
         <!--org unit filter-->
         <button
           mat-stroked-button
+          style="min-width: 120px"
           [title]="'Filter by organisation unit'"
           (click)="toggleOrgUnitFilter($event)"
         >
-          <i class="fa fa-sitemap"></i>Org unit filter
-          <span class="badge badge-secondary"></span>
+          <i class="fa fa-sitemap"></i>
+          <span *ngIf="!selectedOu">Org unit filter</span>
+          <span *ngIf="selectedOu && selectedOu.name">{{
+            selectedOu?.name
+          }}</span>
           &nbsp;
           <!-- <i
             [ngClass]="orgUnitFilterSet ? 'fa fa-caret-up' : 'fa fa-caret-down'"
@@ -55,12 +59,15 @@
           (currentUser$ | async) &&
           filterSelections &&
           filterSelections['ou'] &&
-          filterSelections['ouGroupSet']
+          filterSelections['ouGroupSet'] &&
+          (ouWithChildren$ | async) &&
+          filterChanged
         "
       >
         <app-report
           [currentUser]="currentUser$ | async"
           [filterSelections]="filterSelections"
+          [ouWithChildren]="ouWithChildren$ | async"
         >
         </app-report>
       </div>

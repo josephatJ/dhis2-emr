@@ -30,9 +30,10 @@ export class HomeComponent implements OnInit {
   orgUnitsGroupSets$: Observable<any>;
   selectedOrgUnitsGroupSet: any;
   orgUnitFilterSet: boolean = false;
-  filterSet: string = '';
   filterSelections: any = {};
   ouWithChildren$: Observable<any>;
+  filterChanged: boolean = false;
+  selectedOu: any;
   constructor(private store: Store<State>) {
     this.currentUser$ = this.store.select(getCurrentUser);
     this.store.dispatch(loadOrgUnitsGroupSets());
@@ -42,23 +43,33 @@ export class HomeComponent implements OnInit {
     this.orgUnitsGroupSets$ = this.store.select(getOrgUnitsGroupSets);
   }
   getOrgUnitsGroupSet(id) {
-    this.orgUnitFilterSet = false;
-    this.selectedOrgUnitsGroupSet = id;
-    this.filterSelections['ouGroupSet'] = { id: id };
-    this.orgUnitFilterSet = false;
+    this.filterChanged = false;
+    if (id != '') {
+      this.orgUnitFilterSet = false;
+      this.selectedOrgUnitsGroupSet = id;
+      this.filterSelections['ouGroupSet'] = { id: id };
+      this.orgUnitFilterSet = false;
+      setTimeout(() => {
+        this.filterChanged = true;
+      }, 100);
+    }
   }
   onFilterUpdate(selection, type) {
     this.orgUnitFilterSet = !this.orgUnitFilterSet;
     this.selectedOrgUnitItems = selection['items'];
     this.filterSelections['ou'] = selection['items'][0];
-    console.log('filters', this.filterSelections);
+    this.selectedOu = selection['items'][0];
     this.store.dispatch(
       loadOuWithChildren({ ou: this.filterSelections['ou']['id'] })
     );
     this.orgUnitFilterSet = false;
+    this.filterChanged = false;
     this.ouWithChildren$ = this.store.select(getOuWithChildrenById, {
       id: this.filterSelections['ou']['id']
     });
+    setTimeout(() => {
+      this.filterChanged = true;
+    }, 100);
   }
   onFilterClose(selection, type) {
     this.orgUnitFilterSet = false;
