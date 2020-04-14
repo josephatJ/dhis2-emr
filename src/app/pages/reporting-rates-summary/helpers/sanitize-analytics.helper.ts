@@ -23,17 +23,23 @@ export function sanitizeAnalytics(analytics) {
       analytics['metaData']['dimensions']['dx']
     )
   };
+
   return newAnalytics;
 }
 
 function formatRowsData(rows, ous, dxs) {
-  let dataFormatted = {};
-  _.map(ous, (ou, rowIndex) => {
-    _.map(dxs, (dx, columnIndex) => {
-      dataFormatted[ou + '-' + dx] = rows[rowIndex][columnIndex + 4];
+  let formattedRows = [];
+  if (rows && rows.length > 0) {
+    _.map(rows, (row, rowIndex) => {
+      let newRow = [];
+      newRow.push(row[1]);
+      _.map(dxs, (dx, i) => {
+        newRow.push(row[i + 4]);
+      });
+      formattedRows.push(newRow);
     });
-  });
-  return dataFormatted;
+  }
+  return formattedRows;
 }
 
 function formatHeaders(headers, dx) {
