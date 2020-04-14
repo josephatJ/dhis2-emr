@@ -114,6 +114,5 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
       this.selectionChanged = true;
     }, 100);
     this.filterSelections = selections;
-    console.log('selections', selections);
   }
 }
