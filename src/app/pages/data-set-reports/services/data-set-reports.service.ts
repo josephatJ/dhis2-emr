@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataSetReportsService {
   getDataSetReport(dimension): Observable<any> {
-    console.log('dimension', dimension);
     if (dimension.ds.formType == 'CUSTOM') {
       return this.httpClient.get(
         '../../../api/dataSetReport/custom?filter=&ds=' +

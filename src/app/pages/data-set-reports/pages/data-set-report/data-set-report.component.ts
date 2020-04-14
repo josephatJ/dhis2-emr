@@ -62,11 +62,10 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
 
   getDataSet(dataSetId) {
     this.dataSetId = dataSetId;
-    this.store.dispatch(loadDataSetDimensions({ dataSetId }));
-    this.dataSetDimensions$ = this.store.select(
-      getDataSetDimensionsByDataSetId,
-      { id: dataSetId }
-    );
+    this.selectionChanged = false;
+    setTimeout(() => {
+      this.selectionChanged = true;
+    }, 100);
   }
 
   getDataSetDimension(dimensionId) {
@@ -106,18 +105,13 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
             .split(':separator:')
             .filter(content => content.length > 0)
         : [];
-    console.log('gsgsgsgs');
     return _.filter(scripts, (scriptContent: string) => scriptContent !== '');
   }
 
   onFilterUpdate(selections) {
-    console.log(this.dataSetId);
     this.selectionChanged = false;
     setTimeout(() => {
       this.selectionChanged = true;
-      this.selectionChanged$.next({
-        changed: true
-      });
     }, 100);
     this.filterSelections = selections;
     console.log('selections', selections);
