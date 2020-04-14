@@ -1,1 +1,76 @@
-<p>home works!</p>
+<div style="height:100vh;background-color: #FFF;">
+  <div class="row" style="padding: 10px">
+    <div class="col-12 report-header">
+      <h3>Organisation units distribution</h3>
+      <hr style="margin: 0" />
+    </div>
+
+    <div *ngIf="!(orgUnitsGroupSets$ | async)">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="col-12 filters" *ngIf="orgUnitsGroupSets$ | async">
+      <div style="float: left;">
+        <!--org unit filter-->
+        <button
+          mat-stroked-button
+          style="min-width: 120px"
+          [title]="'Filter by organisation unit'"
+          (click)="toggleOrgUnitFilter($event)"
+        >
+          <i class="fa fa-sitemap"></i>
+          <span *ngIf="!selectedOu">Org unit filter</span>
+          <span *ngIf="selectedOu && selectedOu.name">{{
+            selectedOu?.name
+          }}</span>
+          &nbsp;
+          <!-- <i
+            [ngClass]="orgUnitFilterSet ? 'fa fa-caret-up' : 'fa fa-caret-down'"
+          ></i> -->
+        </button>
+        <div *ngIf="orgUnitFilterSet">
+          <ngx-dhis2-org-unit-filter
+            [selectedOrgUnitItems]="selectedOrgUnitItems"
+            [orgUnitFilterConfig]="orgUnitFilterConfig"
+            (orgUnitClose)="onFilterClose($event, 'ORG_UNIT')"
+            (orgUnitUpdate)="onFilterUpdate($event, 'ORG_UNIT')"
+          >
+          </ngx-dhis2-org-unit-filter>
+        </div>
+        <!--end of org unit filter-->
+      </div>
+      <div style="width: 20%; float: left; margin-left: 10px">
+        <select
+          class="mat-stroked-button"
+          style="width: 100%; padding: 8px;"
+          (change)="getOrgUnitsGroupSet($event.target.value)"
+        >
+          <option value="">Select groupset</option>
+          <option
+            [value]="orgUnitsGroupSet.id"
+            *ngFor="let orgUnitsGroupSet of orgUnitsGroupSets$ | async"
+            >{{ orgUnitsGroupSet.displayName }}</option
+          >
+        </select>
+      </div>
+    </div>
+    <div class="col-12">
+      <div
+        *ngIf="
+          (currentUser$ | async) &&
+          filterSelections &&
+          filterSelections['ou'] &&
+          filterSelections['ouGroupSet'] &&
+          (ouWithChildren$ | async) &&
+          filterChanged
+        "
+      >
+        <app-report
+          [currentUser]="currentUser$ | async"
+          [filterSelections]="filterSelections"
+          [ouWithChildren]="ouWithChildren$ | async"
+        >
+        </app-report>
+      </div>
+    </div>
+  </div>
+</div>

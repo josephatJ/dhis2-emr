@@ -1,0 +1,33 @@
+<div *ngIf="ouDistributionAnalytics">
+  <table
+    class="table table-bordered table-striped"
+    *ngIf="
+      ouDistributionAnalytics['rows'] &&
+      ouDistributionAnalytics['rows'].length > 0
+    "
+  >
+    <thead style="background-color: #F2F2F2">
+      <tr>
+        <th *ngFor="let header of ouDistributionAnalytics['headers']">
+          {{ header.column }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rowData of ouDistributionAnalytics['rows']">
+        <td *ngFor="let data of rowData">
+          {{ data }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    *ngIf="
+      ouDistributionAnalytics['rows'] &&
+      ouDistributionAnalytics['rows'].length == 0
+    "
+    style="padding: 50px;"
+  >
+    <h4 style="text-align: center;">No data</h4>
+  </div>
+</div>
