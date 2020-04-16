@@ -21,7 +21,6 @@ export class ReportingRatesEffects {
       switchMap(action =>
         this.reportingRatesService.getReportingRates(action.dimensions).pipe(
           map(reportingRatesReport => {
-            console.log('reportingRatesReport', reportingRatesReport);
             return addLoadedDataSetReportingRates({
               reportingRatesReport: {
                 id:
