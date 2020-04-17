@@ -16,12 +16,19 @@ export function cleanFavouriteData(favouriteConfigurations, favouriteData) {
           return data[0] == dx ? true : false;
         }),
         favDataRow => {
-          dxArray.push(parseFloat(favDataRow[valueIndex]));
+          if (favouriteConfigurations.type == 'COLUMN') {
+            dxArray.push(parseFloat(favDataRow[valueIndex]));
 
-          data.push({
-            name: favouriteData.metaData.items[dx].name,
-            data: dxArray
-          });
+            data.push({
+              name: favouriteData.metaData.items[dx].name,
+              data: dxArray
+            });
+          } else {
+            data.push({
+              name: favouriteData.metaData.items[dx].name,
+              y: parseFloat(favDataRow[valueIndex])
+            });
+          }
         }
       );
     });
