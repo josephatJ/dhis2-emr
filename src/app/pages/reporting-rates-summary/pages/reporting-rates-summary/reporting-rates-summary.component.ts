@@ -44,7 +44,6 @@ export class ReportingRatesSummaryComponent implements OnInit {
   isReportSet: boolean = false;
   report: any;
   filterSelections: Array<any> = [];
-  selectionChanged$: Subject<any> = new Subject();
   selectionChanged: boolean = false;
   dataSetDimensions$: Observable<any>;
   selectedDataSet: any;
@@ -64,16 +63,15 @@ export class ReportingRatesSummaryComponent implements OnInit {
 
   getDataSet(dataSetId) {
     this.dataSetId = dataSetId;
-    this.store.dispatch(loadDataSetDimensions({ dataSetId }));
-    this.dataSetDimensions$ = this.store.select(
-      getDataSetDimensionsByDataSetId,
-      { id: dataSetId }
-    );
-    this.dataSets$.subscribe(dataSets => {
-      if (dataSets) {
-        this.selectedDataSet = _.filter(dataSets, { id: dataSetId })[0];
-      }
-    });
+    this.selectionChanged = false;
+    setTimeout(() => {
+      this.dataSets$.subscribe(dataSets => {
+        if (dataSets) {
+          this.selectedDataSet = _.filter(dataSets, { id: dataSetId })[0];
+          this.selectionChanged = true;
+        }
+      });
+    }, 10);
   }
 
   getDataSetDimension(dimensionId) {
@@ -84,10 +82,7 @@ export class ReportingRatesSummaryComponent implements OnInit {
     this.selectionChanged = false;
     setTimeout(() => {
       this.selectionChanged = true;
-      this.selectionChanged$.next({
-        changed: true
-      });
-    }, 1000);
+    }, 10);
     this.filterSelections = selections;
     const ouId = _.filter(selections, { dimension: 'ou' })[0]
       ? _.filter(selections, { dimension: 'ou' })[0]['items'][0]['id']
@@ -98,6 +93,5 @@ export class ReportingRatesSummaryComponent implements OnInit {
         id: ouId
       });
     }
-    console.log('selections', selections);
   }
 }

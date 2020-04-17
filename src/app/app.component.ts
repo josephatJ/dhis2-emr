@@ -9,6 +9,7 @@ import { Fn } from '@iapps/function-analytics';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  isLeftPanelSet: boolean = true;
   constructor(
     private translate: TranslateService,
     private titleService: Title
@@ -27,6 +28,10 @@ export class AppComponent {
         baseUrl: '../../../'
       });
     }
+  }
+
+  toggleLeftMenu() {
+    this.isLeftPanelSet = !this.isLeftPanelSet;
   }
 
   public setTitle(newTitle: string) {

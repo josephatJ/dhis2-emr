@@ -25,9 +25,8 @@
             >{{ dataSet.name }}</option
           >
         </select>
-        <!-- {{ dataSets$ | async | json }} -->
       </div>
-      <div style="width: 20%; float: left;" *ngIf="dataSetDimensions$ | async">
+      <div style="width: 10%; float: left;" *ngIf="dataSetDimensions$ | async">
         <select
           style="width: 100%; padding: 8px;"
           (change)="getDataSetDimension($event.target.value)"
@@ -41,7 +40,7 @@
           >
         </select>
       </div>
-      <div style="width: 40%; float: left;" *ngIf="dataSetId">
+      <div style="width: 40%; float: left;">
         <ngx-dhis2-selection-filters
           [selectionFilterConfig]="selectionFilterConfig"
           (filterUpdate)="onFilterUpdate($event)"
@@ -62,7 +61,8 @@
       (currentUser$ | async) &&
       filterSelections &&
       filterSelections.length > 1 &&
-      (ouWithChildren$ | async)
+      (ouWithChildren$ | async) &&
+      selectionChanged
     "
   >
     <app-report

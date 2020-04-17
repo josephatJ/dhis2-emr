@@ -11,7 +11,9 @@ export class RenderReportingRatesComponent implements OnInit {
   itemsPerPage: number = 5;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('visualizationLayers', this.visualizationLayers);
+  }
 
   onUpdatePageSize(e) {
     this.itemsPerPage = e;

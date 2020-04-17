@@ -1,15 +1,10 @@
 <div *ngIf="reportingRatesVisualizationLayers$ | async">
-  <!-- <app-render-reporting-rates [analytics]="reportingRatesAnalytics$ | as"></app-render-reporting-rates> -->
   <app-render-reporting-rates
     [visualizationLayers]="
       (reportingRatesVisualizationLayers$ | async)?.visualizationLayers
     "
   ></app-render-reporting-rates>
-  <!-- <dhis2-table-list
-    [visualizationLayers]="
-      (reportingRatesVisualizationLayers$ | async)?.visualizationLayers
-    "
-    [visualizationType]="'TABLE'"
-    [legendSets]="[]"
-  ></dhis2-table-list> -->
+</div>
+<div *ngIf="!(reportingRatesVisualizationLayers$ | async)">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>

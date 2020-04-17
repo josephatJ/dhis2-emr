@@ -38,3 +38,13 @@
   background-color: rgb(224, 224, 224);
   color: rgb(33, 150, 243);
 }
+
+.control-arrows,
+.home-btn {
+  border: none;
+  background-color: transparent;
+}
+
+.hide-left-menu {
+  display: none;
+}

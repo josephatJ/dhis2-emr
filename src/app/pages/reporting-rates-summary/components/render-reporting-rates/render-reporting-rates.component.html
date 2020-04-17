@@ -4,40 +4,49 @@
     *ngFor="let visualizationLayer of visualizationLayers"
   >
     <mat-card class="w-100 mb-4 p-0">
-      <!-- <div class="card w-100 mb-4"> -->
-      <table class="table w-100 table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Organisation unit / Data</th>
-            <th
-              *ngFor="let header of visualizationLayer['analytics']['headers']"
+      <div
+        *ngIf="
+          visualizationLayer['analytics']['rows'] &&
+          visualizationLayer['analytics']['rows'].length > 0
+        "
+      >
+        <table class="table w-100 table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Organisation unit / Data</th>
+              <th
+                *ngFor="
+                  let header of visualizationLayer['analytics']['headers']
+                "
+              >
+                {{ header.name }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let dataRow of visualizationLayer['analytics']['rows'];
+                let i = index;
+                trackBy: trackByFn
+              "
             >
-              {{ header.name }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="
-              let ou of visualizationLayer['analytics']['metaData']['ou'];
-              let i = index;
-              trackBy: trackByFn
-            "
-          >
-            <td>
-              {{ visualizationLayer['analytics']['metaData']['names'][ou] }}
-            </td>
-            <td
-              *ngFor="let header of visualizationLayer['analytics']['headers']"
-            >
-              {{
-                visualizationLayer['analytics']['rows'][ou + '-' + header.id]
-              }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- </div> -->
+              <td *ngFor="let data of dataRow">
+                {{ data }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        *ngIf="
+          visualizationLayer['analytics']['rows'] &&
+          visualizationLayer['analytics']['rows'].length == 0
+        "
+        style="margin-top: 50px"
+      >
+        <h4 style="text-align: center">No data</h4>
+      </div>
     </mat-card>
   </div>
 </div>

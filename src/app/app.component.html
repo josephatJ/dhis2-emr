@@ -3,7 +3,53 @@
 <div class="application-content continer-fluid">
   <div class="row" style="margin-left: 0px;margin-right: 0px;padding:0px;">
     <div
-      class="col-md-2 reports-list-menu"
+      [ngClass]="{
+        'col-md-2': isLeftPanelSet == true,
+        'hide-left-menu': isLeftPanelSet == false
+      }"
+      style="padding-right: 0px;"
+    >
+      <button
+        routerLink=""
+        title="Home"
+        class="home-btn"
+        style="margin-left: 45px;"
+      >
+        <i class="fa fa-home"></i>
+      </button>
+      <button
+        *ngIf="isLeftPanelSet"
+        (click)="toggleLeftMenu()"
+        class="control-arrows"
+        title="Close"
+        style="float: right"
+      >
+        <i class="fa fa-arrow-left"></i>
+      </button>
+    </div>
+    <div
+      style="background-color: transparent"
+      [ngClass]="{
+        'col-md-10': isLeftPanelSet == true,
+        'col-md-12': isLeftPanelSet == false
+      }"
+    >
+      <button
+        *ngIf="!isLeftPanelSet"
+        (click)="toggleLeftMenu()"
+        class="control-arrows"
+        title="Expand"
+        style="float: left"
+      >
+        <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+    <div
+      [ngClass]="{
+        'col-md-2': isLeftPanelSet == true,
+        'hide-left-menu': isLeftPanelSet == false
+      }"
+      class="reports-list-menu"
       style="height: calc(100vh - 48px);background-color: #f2f2f2;"
     >
       <ul class="reports-list">
@@ -30,7 +76,13 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-10" style="background-color: #fff">
+    <div
+      style="height:100vh;background-color: #FFF;"
+      [ngClass]="{
+        'col-md-10': isLeftPanelSet == true,
+        'col-md-12': isLeftPanelSet == false
+      }"
+    >
       <router-outlet></router-outlet>
     </div>
   </div>
