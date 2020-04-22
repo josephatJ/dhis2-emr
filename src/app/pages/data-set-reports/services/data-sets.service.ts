@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class DataSetsService {
   getDataSets(): Observable<any> {
     return this.httpClient.get(
-      'dataSets.json?fields=id,name,periodType,formType,categoryCombo[id,name,categoryOptionCombos[id,name]],sections[*],attributeValues[*]'
+      'dataSets.json?paging=false&fields=id,name,periodType,formType,categoryCombo[id,name,categoryOptionCombos[id,name]],sections[*],attributeValues[*]'
     );
   }
 

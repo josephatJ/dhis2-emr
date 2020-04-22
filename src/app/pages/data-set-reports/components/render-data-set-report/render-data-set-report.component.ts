@@ -55,7 +55,6 @@ export class RenderDataSetReportComponent implements OnInit, AfterViewInit {
             .split(':separator:')
             .filter(content => content.length > 0)
         : [];
-    console.log('gsgsgsgs');
     return _.filter(scripts, (scriptContent: string) => scriptContent !== '');
   }
 }

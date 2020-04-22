@@ -19,6 +19,7 @@ export class ReportComponent implements OnInit {
   @Input() currentUser: any;
   @Input() dataSetId: string;
   @Input() filterSelections: any;
+  @Input() filterDimension: string;
   dimensions: any;
   dataSetReport$: Observable<any>;
   @Input() dataSets: any;
@@ -29,7 +30,8 @@ export class ReportComponent implements OnInit {
       this.dimensions = createSelectionDimensions(
         this.filterSelections,
         this.dataSetId,
-        _.filter(this.dataSets, { id: this.dataSetId })[0]
+        _.filter(this.dataSets, { id: this.dataSetId })[0],
+        this.filterDimension
       );
       this.store.dispatch(
         loadDataSetReport({

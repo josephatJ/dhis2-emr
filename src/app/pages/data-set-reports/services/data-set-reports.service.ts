@@ -10,7 +10,9 @@ export class DataSetReportsService {
   getDataSetReport(dimension): Observable<any> {
     if (dimension.ds.formType == 'CUSTOM') {
       return this.httpClient.get(
-        '../../../api/dataSetReport/custom?filter=&ds=' +
+        '../../../api/dataSetReport/custom?filter=' +
+          dimension.filter +
+          '&ds=' +
           dimension.dx +
           '&pe=' +
           dimension.pe +
@@ -26,7 +28,9 @@ export class DataSetReportsService {
       );
     } else {
       return this.dhis2HttpClient.get(
-        'dataSetReport?filter=&ds=' +
+        'dataSetReport?filter=' +
+          dimension.filter +
+          '&ds=' +
           dimension.dx +
           '&pe=' +
           dimension.pe +
@@ -38,10 +42,10 @@ export class DataSetReportsService {
   }
 
   getDataSetDimensions(dataSetId): Observable<any> {
-    return this.httpClient.get(
+    return this.dhis2HttpClient.get(
       'dimensions/dataSet/' +
         dataSetId +
-        '.json?fields=id,displayName,items[id,displayName&order=name~asc&paging=false'
+        '.json?fields=id,displayName,items[id,displayName&order=name~asc]&paging=false'
     );
   }
 

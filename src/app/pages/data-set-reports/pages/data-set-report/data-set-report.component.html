@@ -11,36 +11,53 @@
     class="col-12 filters"
     *ngIf="(dataSets$ | async) && (dataSets$ | async).length > 0"
   >
-    <div style="width: 20%; float: left;">
-      <select
-        class="mat-stroked-button"
-        style="width: 100%; padding: 8px; font-weight: 400"
-        (change)="getDataSet($event.target.value)"
-      >
-        <option value="">Select dataset</option>
-        <option
-          [value]="dataSet.id"
-          *ngFor="let dataSet of dataSets$ | async"
-          >{{ dataSet.name }}</option
-        >
-      </select>
-      <!-- {{ dataSets$ | async | json }} -->
+    <div style="min-width: 30%; float: left;">
+      <mat-form-field class="datasets" style="width: 100%">
+        <mat-label>Dataset</mat-label>
+        <mat-select id="dataset" [(value)]="selectedDataSet">
+          <mat-option
+            [value]="dataSet"
+            (onSelectionChange)="onDataSetSelectionChanged(dataSet)"
+            *ngFor="let dataSet of dataSets$ | async"
+            >{{ dataSet.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      style="width: 20%; float: left;"
+      *ngIf="
+        selectedDataSet &&
+        selectedDataSet['categoryCombo']['categoryOptionCombos'] &&
+        selectedDataSet['categoryCombo']['categoryOptionCombos'][0]['name'] !=
+          'default' &&
+        !(dataSetDimensions$ | async)
+      "
+    >
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
     <div style="width: 20%; float: left;" *ngIf="dataSetDimensions$ | async">
-      <select
-        style="width: 100%; padding: 8px; font-weight: 400"
-        (change)="getDataSetDimension($event.target.value)"
+      <mat-form-field
+        class="datasets-dimensions"
+        style="margin-left: 6px; width: 100%"
       >
-        <option value="">Select Dimension</option>
-        <option
-          [value]="dataSetDimension.id"
-          *ngFor="let dataSetDimension of dataSetDimensions$ | async"
+        <mat-label>Dataset dimension</mat-label>
+        <mat-select
+          id="dataset-dimensions"
+          [(value)]="selectedDataSetDimension"
         >
-          {{ dataSetDimension.displayName }}</option
-        >
-      </select>
+          <mat-option
+            [value]="dataSetDimension"
+            (onSelectionChange)="onDimensionSelectionChanged(dataSetDimension)"
+            *ngFor="
+              let dataSetDimension of (dataSetDimensions$ | async)?.dimensions
+            "
+            >{{ dataSetDimension.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div style="width: 40%; float: left;">
+    <div style="width: 40%; float: left;margin-left: 4px;">
       <ngx-dhis2-selection-filters
         [selectionFilterConfig]="selectionFilterConfig"
         (filterUpdate)="onFilterUpdate($event)"
@@ -67,6 +84,7 @@
   >
     <app-report
       [dataSetId]="dataSetId"
+      [filterDimension]="filterDimension"
       [currentUser]="currentUser$ | async"
       [filterSelections]="filterSelections"
       [dataSets]="dataSets$ | async"

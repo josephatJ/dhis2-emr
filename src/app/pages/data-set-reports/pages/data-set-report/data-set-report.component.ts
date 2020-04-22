@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/store/reducers';
 import { loadDataSets, loadDataSetDimensions } from '../../store/actions';
 import { getCurrentUser } from 'src/app/store/selectors';
-import { getLoadedDataSets } from '../../store/selectors';
+import { getLoadedDataSets, getDatasetLoadedById } from '../../store/selectors';
 import { getDataSetDimensionsByDataSetId } from '../../store/selectors/datasets-dimensions.selectors';
 
 @Component({
@@ -34,6 +34,8 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
       batchSize: 400
     }
   };
+  selectedDataSetDimension: any;
+  selectedDataSet: any;
   selectedOrgUnitItems: Array<any> = [];
   dataSetReport$: Observable<any>;
   isReportSet: boolean = false;
@@ -44,8 +46,10 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
   selectionChanged: boolean = false;
   currentUser$: Observable<any>;
   dataSets$: Observable<any>;
+  selectedDataSet$: Observable<any>;
   dataSetId: string;
   dataSetDimensions$: Observable<any>;
+  filterDimension: string = '';
   constructor(private sanitizer: DomSanitizer, private store: Store<State>) {
     this.currentUser$ = this.store.select(getCurrentUser);
     this.currentUser$.subscribe(currentUser => {
@@ -60,16 +64,37 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
     this.selectionChanged = true;
   }
 
-  getDataSet(dataSetId) {
-    this.dataSetId = dataSetId;
+  onDataSetSelectionChanged(dataSet) {
+    this.dataSetId = dataSet.id;
+    if (
+      dataSet &&
+      dataSet['categoryCombo']['categoryOptionCombos'] &&
+      dataSet['categoryCombo']['categoryOptionCombos'][0]['name'] != 'default'
+    ) {
+      this.store.dispatch(loadDataSetDimensions({ dataSetId: this.dataSetId }));
+      this.dataSetDimensions$ = this.store.select(
+        getDataSetDimensionsByDataSetId,
+        { id: this.dataSetId }
+      );
+    }
+
+    this.selectedDataSet = dataSet;
+    this.selectedDataSet$ = this.store.select(getDatasetLoadedById, {
+      id: dataSet.id
+    });
     this.selectionChanged = false;
     setTimeout(() => {
       this.selectionChanged = true;
     }, 100);
   }
 
-  getDataSetDimension(dimensionId) {
-    console.log('dimension', dimensionId);
+  onDimensionSelectionChanged(dimension) {
+    this.selectedDataSetDimension = dimension;
+    this.selectionChanged = false;
+    setTimeout(() => {
+      this.selectionChanged = true;
+      this.filterDimension = dimension.dimension.id + ':' + dimension.id;
+    }, 100);
   }
 
   ngAfterViewInit() {

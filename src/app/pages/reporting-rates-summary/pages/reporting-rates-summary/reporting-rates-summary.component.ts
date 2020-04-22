@@ -3,16 +3,11 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/store/reducers';
 import { Observable, Subject } from 'rxjs';
 import { getCurrentUser } from 'src/app/store/selectors';
-import {
-  loadDataSetDimensions,
-  loadDataSets,
-  loadOuWithChildren
-} from '../../store/actions';
+import { loadDataSets, loadOuWithChildren } from '../../store/actions';
 import {
   getLoadedDataSets,
   getOuWithChildrenById
 } from '../../store/selectors';
-import { getDataSetDimensionsByDataSetId } from '../../store/selectors/datasets-dimensions.selectors';
 import * as _ from 'lodash';
 
 @Component({

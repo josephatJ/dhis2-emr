@@ -1,8 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { DynamicDimension } from '../../models';
 
 export const loadDataSetDimensions = createAction(
-  '[Dataset Dimensions] load dimensions',
+  '[Dataset Dimensions] load dimensions ',
   props<{ dataSetId: string }>()
 );
 

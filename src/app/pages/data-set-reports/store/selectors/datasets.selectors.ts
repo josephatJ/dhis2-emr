@@ -4,6 +4,7 @@ import {
   createSelector
 } from '@ngrx/store';
 import { DataSetsState } from '../states/datasets.states';
+import * as _ from 'lodash';
 
 export const getDataSetsState: MemoizedSelector<
   object,
@@ -18,4 +19,9 @@ export const getDataSetsLoadedState = createSelector(
 export const getLoadedDataSets = createSelector(
   getDataSetsState,
   (state: DataSetsState) => state.dataSets
+);
+
+export const getDatasetLoadedById = createSelector(
+  getDataSetsState,
+  (state: DataSetsState, props) => _.filter(state.dataSets, { id: props.id })[0]
 );
