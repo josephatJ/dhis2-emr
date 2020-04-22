@@ -7,12 +7,15 @@ export function fetchFunctionsData() {}
 export function getFavouriteDataDimensions(configs: any) {
   let Items = [];
   configs.dataDimensionItems.forEach(dataDimensionItem => {
+    console.log('see the item error::', dataDimensionItem);
     Items.push(
       dataDimensionItem.indicator
         ? dataDimensionItem.indicator.id
         : dataDimensionItem.dataElement.id
     );
   });
+
+  console.log('dx string', Items.join(';'));
 
   return Items.join(';');
 }
@@ -65,6 +68,8 @@ export function processConfigs(
     favouriteConfigurations,
     favouriteData
   );
+
+  console.log('data :: ', data);
 
   switch (favouriteConfigurations.type) {
     case 'COLUMN':
@@ -177,7 +182,42 @@ export function processConfigs(
       break;
 
     case 'PIE':
-      options = {};
+      options = {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+        },
+        title: {
+          text: favouriteConfigurations.displayName
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.y:.1f}</b>'
+        },
+        accessibility: {
+          point: {
+            valueSuffix: '%'
+          }
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.y:.1f}'
+            }
+          }
+        },
+        series: [
+          {
+            name: 'Brands',
+            colorByPoint: true,
+            data: data
+          }
+        ]
+      };
       break;
 
     case 'GAUGE':

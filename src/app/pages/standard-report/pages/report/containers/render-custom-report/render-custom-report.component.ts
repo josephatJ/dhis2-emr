@@ -30,7 +30,7 @@ export class RenderCustomReportComponent implements OnInit {
   arrayForAnalytics: Array<{}>;
   orgUnit$: Observable<string>;
   period$: Observable<string>;
-  x: {};
+
   favId: string;
   constructor(
     private store: Store<any>,
@@ -40,6 +40,7 @@ export class RenderCustomReportComponent implements OnInit {
 
   ngOnInit() {
     try {
+      console.log(this.htmlCodes);
       this.htmlCodes_ = this.sanitizer.bypassSecurityTrustHtml(this.htmlCodes);
     } catch (e) {
       console.log('ng on init ' + JSON.stringify(e));
@@ -57,13 +58,17 @@ export class RenderCustomReportComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    try {
-      this.arrayForAnalytics = getElementDetails();
+    setTimeout(() => {
+      try {
+        this.arrayForAnalytics = getElementDetails();
 
-      if (this.arrayForAnalytics) {
-        this.fetchDataBasedOnConfigs(this.arrayForAnalytics);
+        if (this.arrayForAnalytics) {
+          this.fetchDataBasedOnConfigs(this.arrayForAnalytics);
+        }
+      } catch (e) {
+        console.log('error on set timeout :: ', e);
       }
-    } catch (e) {}
+    }, 1000);
   }
 
   fetchDataBasedOnConfigs(arrayForAnalytics: Array<{}>) {
@@ -101,13 +106,8 @@ export class RenderCustomReportComponent implements OnInit {
               .subscribe(data => {
                 // tslint:disable-next-line: prefer-const
                 this.favId = dataToFetch['id'];
-                this.x = addAnalyticsToVisualizationLayer(
-                  data,
-                  favouriteConfigs
-                );
 
                 console.log('unformatted data ::: ', data);
-                console.log('formatted analytics ::: ', this.x);
                 let options = processConfigs(favouriteConfigs, data);
 
                 renderFavorite(dataToFetch['id'], options);
