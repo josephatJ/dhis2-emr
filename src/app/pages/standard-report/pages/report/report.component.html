@@ -1,7 +1,15 @@
-<div *ngIf="htmlTemplate$ | async">
-  <div>
+<div *ngIf="htmlTemplate$ | async as htmlTemp; else loading">
+  <div *ngIf="htmlTemp.htmlString">
     <app-render-custom-report
-      [htmlCodes]="(htmlTemplate$ | async).htmlString"
+      [htmlCodes]="htmlTemp.htmlString"
     ></app-render-custom-report>
   </div>
 </div>
+<ng-template #loading>
+  <div>
+    <div class="row" style="text-align: center">
+      <p>Loading Report Template ...</p>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  </div>
+</ng-template>

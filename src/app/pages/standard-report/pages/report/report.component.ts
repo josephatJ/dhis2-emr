@@ -22,7 +22,7 @@ export class ReportComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.params.subscribe(params => {
-      console.log('params ::: ', params);
+      //console.log('params ::: ', params);
 
       this.ngOnInit();
     });
