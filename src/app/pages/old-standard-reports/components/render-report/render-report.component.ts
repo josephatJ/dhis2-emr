@@ -20,7 +20,7 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
     try {
       this.htmlCodes = this.sanitizer.bypassSecurityTrustHtml(this.reportHtml);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
     var iframe = document.createElement('iframe');
     iframe.style.border = 'none';

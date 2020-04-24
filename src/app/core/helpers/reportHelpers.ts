@@ -7,15 +7,12 @@ export function fetchFunctionsData() {}
 export function getFavouriteDataDimensions(configs: any) {
   let Items = [];
   configs.dataDimensionItems.forEach(dataDimensionItem => {
-    console.log('see the item error::', dataDimensionItem);
     Items.push(
       dataDimensionItem.indicator
         ? dataDimensionItem.indicator.id
         : dataDimensionItem.dataElement.id
     );
   });
-
-  console.log('dx string', Items.join(';'));
 
   return Items.join(';');
 }
@@ -25,8 +22,6 @@ export function renderAnalyticsData(id: string, value: string) {
 }
 
 export function prepareAnalyticsUrl(favoriteConfig: any) {
-  console.log('fav configs ::', favoriteConfig);
-
   let url = 'analytics?dimension=dx:';
   favoriteConfig.dataDimensionItems.forEach(dataDimension => {
     if (dataDimension.dataDimensionItemType === 'DATA_ELEMENT') {
@@ -45,9 +40,6 @@ export function processConfigs(
   favouriteConfigurations: any,
   favouriteData: any
 ) {
-  console.log('favorite-configurations', favouriteConfigurations);
-  console.log('favorite-data', favouriteData);
-
   let options;
   let categories: Array<string> = [];
   if (favouriteConfigurations.category == 'ou') {
@@ -68,8 +60,6 @@ export function processConfigs(
     favouriteConfigurations,
     favouriteData
   );
-
-  console.log('data :: ', data);
 
   switch (favouriteConfigurations.type) {
     case 'COLUMN':
@@ -225,7 +215,44 @@ export function processConfigs(
       break;
 
     case 'LINE':
-      options = {};
+      options = {
+        title: {
+          text: favouriteConfigurations.displayName
+        },
+
+        subtitle: {
+          text: ''
+        },
+
+        yAxis: {
+          title: {
+            text: ''
+          }
+        },
+
+        xAxis: {
+          categories: categories,
+          crosshair: true
+        },
+        series: [{ name: '', data: data }],
+
+        responsive: {
+          rules: [
+            {
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'bottom'
+                }
+              }
+            }
+          ]
+        }
+      };
       break;
 
     case 'BAR':

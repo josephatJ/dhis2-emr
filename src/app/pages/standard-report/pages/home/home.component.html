@@ -1,6 +1,9 @@
-<div style="min-height:100vh !important;background-color: #FFF;">
+<div
+  style="min-height:100vh !important;background-color: #FFF;"
+  class="container"
+>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
       <div
         *ngIf="(reportsList$ | async)['length'] == 0"
         style="text-align: center"
@@ -9,7 +12,10 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
 
-      <mat-form-field *ngIf="(reportsList$ | async)['length'] > 0">
+      <mat-form-field
+        *ngIf="(reportsList$ | async)['length'] > 0"
+        style="margin: 3px"
+      >
         <mat-label>Select Report</mat-label>
         <mat-select>
           <mat-option
@@ -35,12 +41,15 @@
         [selectionFilterConfig]="selectionFilterConfig"
       >
       </ngx-dhis2-selection-filters>
-      <button mat-raised-button (click)="getReportTemplate()">
+      <button
+        mat-raised-button
+        (click)="getReportTemplate()"
+        style="margin-top: 20px; margin-left: 3px"
+      >
         Generate Report
       </button>
     </div>
   </div>
   <!--{{ reportsList$ | async | json }}-->
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet></router-outlet>
