@@ -46,6 +46,7 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
       configs.length > 0 &&
       configs.join(';').indexOf('no-filter') > -1
     ) {
+      this.selectionChanged = true;
       var iframe = document.createElement('iframe');
       iframe.style.border = 'none';
       iframe.style.width = '100%';
@@ -55,11 +56,15 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
         'onload',
         'this.height=this.contentWindow.document.body.scrollHeight;'
       );
-      var ctnr = document.getElementById('html_id');
-      ctnr.appendChild(iframe);
-      iframe.contentWindow.document.open('text/htmlreplace');
-      iframe.contentWindow.document.write(this.reportHtml);
-      iframe.contentWindow.document.close();
+      setTimeout(() => {
+        var ctnr = document.getElementById('html_id');
+        if (ctnr) {
+          ctnr.appendChild(iframe);
+          iframe.contentWindow.document.open('text/htmlreplace');
+          iframe.contentWindow.document.write(this.reportHtml);
+          iframe.contentWindow.document.close();
+        }
+      }, 50);
       this.isFilterRequired = false;
     } else {
       this.isFilterRequired = true;
