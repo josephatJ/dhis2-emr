@@ -8,23 +8,22 @@
       <h3>{{ (reportMetadata$ | async)?.name }}</h3>
       <hr style="margin: 0" />
     </div>
-    <div class="col-12 filters">
+    <!-- <div class="col-12 filters">
       <ngx-dhis2-selection-filters
         [selectionFilterConfig]="selectionFilterConfig"
         (filterUpdate)="onFilterUpdate($event)"
       >
       </ngx-dhis2-selection-filters>
-    </div>
+    </div> -->
     <div
       class="col-12"
       style="width: 100% !important;"
-      *ngIf="filterSelections && filterSelections.length > 1"
+      *ngIf="reportMetadata$ | async"
     >
       <div style="margin-bottom: 10px"></div>
-      <div *ngIf="selectionChanged">
+      <div>
         <app-render-report
           [reportHtml]="(reportMetadata$ | async)?.designContent"
-          [filterSelections]="filterSelections"
         >
         </app-render-report>
       </div>

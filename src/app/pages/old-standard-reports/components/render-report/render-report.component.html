@@ -1,1 +1,12 @@
-<div id="html_id"></div>
+<div class="row">
+  <div class="col-12 filters" *ngIf="isFilterRequired">
+    <ngx-dhis2-selection-filters
+      [selectionFilterConfig]="selectionFilterConfig"
+      (filterUpdate)="onFilterUpdate($event)"
+    >
+    </ngx-dhis2-selection-filters>
+  </div>
+  <div *ngIf="selectionChanged" class="col-12">
+    <div id="html_id"></div>
+  </div>
+</div>
