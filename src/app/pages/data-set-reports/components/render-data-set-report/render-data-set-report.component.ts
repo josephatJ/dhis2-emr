@@ -25,8 +25,11 @@ export class RenderDataSetReportComponent implements OnInit, AfterViewInit {
     var iframe = document.createElement('iframe');
     iframe.style.border = 'none';
     iframe.style.width = '100%';
-    iframe.style.minHeight = '100vh';
     iframe.setAttribute('id', 'iframe_id');
+    iframe.setAttribute(
+      'onload',
+      'this.height=this.contentWindow.document.body.scrollHeight;'
+    );
     var ctnr = document.getElementById('html_id');
     ctnr.appendChild(iframe);
     iframe.contentWindow.document.open('text/htmlreplace');
