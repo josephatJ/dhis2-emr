@@ -19,16 +19,32 @@ export class RenderDataSetReportComponent implements OnInit, AfterViewInit {
       this.safeReportHtml = this.sanitizer.bypassSecurityTrustHtml(
         this.reportHtml
       );
-    } catch (e) {
-      console.log('ng on init ' + JSON.stringify(e));
+    } catch (error) {
+      console.log(error);
     }
+    var iframe = document.createElement('iframe');
+    iframe.style.border = 'none';
+    iframe.style.width = '100%';
+    iframe.style.minHeight = '100vh';
+    iframe.setAttribute('id', 'iframe_id');
+    var ctnr = document.getElementById('html_id');
+    ctnr.appendChild(iframe);
+    iframe.contentWindow.document.open('text/htmlreplace');
+    iframe.contentWindow.document.write(this.reportHtml);
+    iframe.contentWindow.document.close();
+    // try {
+    //   this.safeReportHtml = this.sanitizer.bypassSecurityTrustHtml(
+    //     this.reportHtml
+    //   );
+    // } catch (e) {
+    //   console.log('ng on init ' + JSON.stringify(e));
+    // }
   }
 
   ngAfterViewInit() {
+    // evaluateIndicatorFormula();
     try {
       this.setScriptsOnHtmlContent(this.getScriptsContents(this.reportHtml));
-
-      evaluateIndicatorFormula();
     } catch (e) {
       console.log('ng after view int ' + JSON.stringify(e));
     }
