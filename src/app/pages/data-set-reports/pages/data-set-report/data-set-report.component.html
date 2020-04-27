@@ -12,17 +12,10 @@
     *ngIf="(dataSets$ | async) && (dataSets$ | async).length > 0"
   >
     <div style="min-width: 30%; float: left;">
-      <mat-form-field class="datasets" style="width: 100%">
-        <mat-label>Select dataset</mat-label>
-        <mat-select id="dataset" [(value)]="selectedDataSet">
-          <mat-option
-            [value]="dataSet"
-            (onSelectionChange)="onDataSetSelectionChanged(dataSet)"
-            *ngFor="let dataSet of dataSets$ | async"
-            >{{ dataSet.name }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
+      <ngx-dataset-filter
+        [dataSets]="dataSets$ | async"
+        (selectedDataSet)="onDataSetSelectionChanged($event)"
+      ></ngx-dataset-filter>
     </div>
     <div
       style="width: 20%; float: left;"

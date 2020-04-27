@@ -1,0 +1,21 @@
+<form class="dataset-form">
+  <mat-form-field class="dataset-form-full-width">
+    <input
+      type="text"
+      placeholder="Select dataset"
+      aria-label="Number"
+      matInput
+      [formControl]="dataSetFormControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option
+        (onSelectionChange)="onDataSetSelectionChanged(dataSet)"
+        *ngFor="let dataSet of filteredOptions | async"
+        [value]="dataSet.name"
+      >
+        {{ dataSet.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

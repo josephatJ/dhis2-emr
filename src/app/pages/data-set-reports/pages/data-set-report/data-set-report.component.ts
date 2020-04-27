@@ -50,6 +50,7 @@ export class DataSetReportComponent implements OnInit, AfterViewInit {
   dataSetId: string;
   dataSetDimensions$: Observable<any>;
   filterDimension: string = '';
+  searchingText: string = '';
   constructor(private sanitizer: DomSanitizer, private store: Store<State>) {
     this.currentUser$ = this.store.select(getCurrentUser);
     this.currentUser$.subscribe(currentUser => {
