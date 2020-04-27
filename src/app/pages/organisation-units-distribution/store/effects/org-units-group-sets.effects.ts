@@ -25,7 +25,7 @@ export class OrgUnitsGroupSetsEffects {
       ofType(loadOrgUnitsGroupSets),
       withLatestFrom(this.store.select(getOrgUnitsGroupSets)),
       switchMap(([action, groupSets]) => {
-        if (groupSets) {
+        if (groupSets && groupSets.length > 0) {
           return from([]);
         } else {
           return this.orgUnitsGroupSetsService.loadOrgUnitsGroupSets().pipe(
