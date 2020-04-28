@@ -35,6 +35,10 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
   };
   selectedOrgUnitItems: Array<any> = [];
   isFilterRequired: boolean = false;
+  addedDimensions: any[] = [];
+  dimensions: any[] = [];
+  currentSetDimenions: any;
+  selectedDimensions: any = {};
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
@@ -69,6 +73,21 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
     } else {
       this.isFilterRequired = true;
       this.selectionChanged = true;
+      if (
+        configs &&
+        configs.length > 0 &&
+        configs.join(';').indexOf('dimensions') > -1
+      ) {
+        let dimensions = this.reportHtml.match(/configdimensions='(.*?)'/g);
+        this.addedDimensions = JSON.parse(
+          dimensions[0]
+            .replace("configdimensions='", '')
+            .substring(
+              0,
+              dimensions[0].replace("configdimensions='", '').length - 1
+            )
+        );
+      }
     }
     try {
       this.htmlCodes = this.sanitizer.bypassSecurityTrustHtml(this.reportHtml);
@@ -109,8 +128,22 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
     return _.filter(scripts, (scriptContent: string) => scriptContent !== '');
   }
 
+  onDimensionSelectionChanged(e, dimension) {
+    this.currentSetDimenions = dimension;
+    _.map(this.addedDimensions, group => {
+      if (_.filter(group.dimensions, { id: dimension.id }).length > 0) {
+        this.selectedDimensions[group.id] = dimension;
+      }
+    });
+  }
+
   onFilterUpdate(selections) {
-    if (selections.length > 1) {
+    if (
+      (selections.length > 1 && !this.selectedDimensions) ||
+      (selections.length > 1 &&
+        this.selectedDimensions &&
+        Object.keys(this.selectedDimensions).length > 1)
+    ) {
       this.selectionChanged = false;
 
       setTimeout(() => {
@@ -133,7 +166,10 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
               iframe.contentWindow.document.write(this.reportHtml);
               iframe.contentWindow[
                 'iReportsDimensions'
-              ] = formatDataDimensionsSelections(selections);
+              ] = formatDataDimensionsSelections(
+                selections,
+                this.selectedDimensions
+              );
               iframe.contentWindow.document.close();
             }
           } catch (e) {
