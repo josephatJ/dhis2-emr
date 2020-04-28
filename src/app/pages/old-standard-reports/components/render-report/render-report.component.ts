@@ -38,7 +38,7 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
   addedDimensions: any[] = [];
   dimensions: any[] = [];
   currentSetDimenions: any;
-  selectedDimensions: any = {};
+  selectedDimensions: any;
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
@@ -130,6 +130,9 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
 
   onDimensionSelectionChanged(e, dimension) {
     this.currentSetDimenions = dimension;
+    if (!this.selectedDimensions) {
+      this.selectedDimensions = {};
+    }
     _.map(this.addedDimensions, group => {
       if (_.filter(group.dimensions, { id: dimension.id }).length > 0) {
         this.selectedDimensions[group.id] = dimension;
@@ -138,6 +141,7 @@ export class RenderReportComponent implements OnInit, AfterViewInit {
   }
 
   onFilterUpdate(selections) {
+    console.log('repo di', this.selectedDimensions);
     if (
       (selections.length > 1 && !this.selectedDimensions) ||
       (selections.length > 1 &&
