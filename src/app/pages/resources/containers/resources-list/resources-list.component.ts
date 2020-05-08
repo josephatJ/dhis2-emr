@@ -20,7 +20,6 @@ export class ResourcesListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @Input() resources: Array<any>;
   @Input() currentUser: any;
-  searchingItem: string = '';
   displayedColumns: string[] = ['position', 'name', 'type', 'action'];
   dataSource: any;
 
@@ -31,6 +30,11 @@ export class ResourcesListComponent implements OnInit {
       formatResourcesForDataTable(this.resources)
     );
     this.dataSource.paginator = this.paginator;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openResource(url) {

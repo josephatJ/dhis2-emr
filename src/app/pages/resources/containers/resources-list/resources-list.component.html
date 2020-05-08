@@ -1,16 +1,21 @@
 <div *ngIf="!resources || resources.length == 0">
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<div class="row w-100 mx-0" *ngIf="resources && resources.length > 0">
-  <input
-    id="searching-input"
-    placeholder="Search "
-    [(ngModel)]="searchingItem"
-  />
-</div>
-
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" style="width: 100%">
+<div>
+  <mat-form-field style="width: 30%">
+    <mat-label>Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. resource list"
+    />
+  </mat-form-field>
+  <table
+    class="mat-elevation-z8"
+    mat-table
+    [dataSource]="dataSource | filterByInputText: searchingItem"
+    style="width: 100%"
+  >
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef>No.</th>
       <td mat-cell *matCellDef="let element">{{ element.position }}</td>

@@ -13,6 +13,5 @@ export function formatResourcesForDataTable(items) {
       }
     });
   });
-  console.log(formattedItems);
   return formattedItems;
 }
