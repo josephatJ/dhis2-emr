@@ -3,7 +3,13 @@
     <h3>Resources</h3>
     <hr style="margin: 0" />
   </div>
-  <div *ngIf="(resources$ | async) && (currentUser$ | async)">
+  <div
+    *ngIf="
+      (resources$ | async) &&
+      (resources$ | async).length > 0 &&
+      (currentUser$ | async)
+    "
+  >
     <app-resources-list
       [resources]="resources$ | async"
       [currentUser]="currentUser$ | async"

@@ -9,9 +9,10 @@ import { effects } from './store/effects';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { FilterByInputTextPipe } from './pipes';
+import { ListingTableComponent } from './components/listing-table/listing-table.component';
 
 @NgModule({
-  declarations: [HomeComponent, ResourcesListComponent, FilterByInputTextPipe],
+  declarations: [HomeComponent, ResourcesListComponent, FilterByInputTextPipe, ListingTableComponent],
   imports: [
     CommonModule,
     FormsModule,
