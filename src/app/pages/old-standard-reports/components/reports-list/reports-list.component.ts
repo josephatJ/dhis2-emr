@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { formatReportsForDataTable } from '../../helpers/format-list-of-reports-for-datatable.helper';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-reports-list',
@@ -7,19 +10,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./reports-list.component.css']
 })
 export class ReportsListComponent implements OnInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @Input() reports: Array<any>;
   @Input() currentUser: any;
-  page: number = 1;
-  itemsPerPage: number = 10;
-  searchingItem: string = '';
-  constructor(private router: Router) {}
+  displayedColumns: string[] = ['position', 'name', 'action'];
+  dataSource: any;
 
-  ngOnInit(): void {}
+  constructor() {}
 
-  onUpdatePageSize(e) {
-    this.itemsPerPage = e;
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(
+      formatReportsForDataTable(this.reports)
+    );
+    this.dataSource.paginator = this.paginator;
   }
-  onCurrentPageUpdate(e) {
-    this.page = e;
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

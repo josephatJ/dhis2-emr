@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class OldReportsService {
   loadReportsList(): Observable<any> {
-    return this.httpClient.get('reports.json?paging=false');
+    return this.httpClient.get('reports.json?paging=false&fields=*');
   }
 
   loadReportContents(reportId): Observable<any> {
