@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { formatAnalyticsForDataTable } from '../../helpers';
+
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-render-reporting-rates',
@@ -6,19 +10,26 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./render-reporting-rates.component.css']
 })
 export class RenderReportingRatesComponent implements OnInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @Input() visualizationLayers: any;
-  page: number = 1;
-  itemsPerPage: number = 5;
+  displayedColumns: string[];
+  dataSource: any;
+  headersReferences: any;
   constructor() {}
 
   ngOnInit(): void {
-    console.log('visualizationLayers', this.visualizationLayers);
+    const formattedData = formatAnalyticsForDataTable(
+      this.visualizationLayers[0]['analytics']['rows'],
+      this.visualizationLayers[0]['analytics']['headers']
+    );
+    this.displayedColumns = formattedData['columns'];
+    this.dataSource = new MatTableDataSource(formattedData['data']);
+    this.headersReferences = formattedData['headersReferences'];
+    this.dataSource.paginator = this.paginator;
   }
 
-  onUpdatePageSize(e) {
-    this.itemsPerPage = e;
-  }
-  onCurrentPageUpdate(e) {
-    this.page = e;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

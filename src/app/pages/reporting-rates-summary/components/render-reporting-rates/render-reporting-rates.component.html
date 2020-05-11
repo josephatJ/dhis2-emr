@@ -1,52 +1,33 @@
-<div *ngIf="visualizationLayers && visualizationLayers.length > 0">
-  <div
-    class="row w-100 mx-0"
-    *ngFor="let visualizationLayer of visualizationLayers"
+<div>
+  <mat-form-field style="width: 30%">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. health center"
+    />
+  </mat-form-field>
+  <!-- {{ headersReferences | json }} -->
+  <table
+    class="mat-elevation-z8"
+    mat-table
+    [dataSource]="dataSource"
+    style="width: 100%"
   >
-    <mat-card class="w-100 mb-4 p-0">
-      <div
-        *ngIf="
-          visualizationLayer['analytics']['rows'] &&
-          visualizationLayer['analytics']['rows'].length > 0
-        "
-      >
-        <table class="table w-100 table-hover table-striped">
-          <thead>
-            <tr>
-              <th>Organisation unit / Data</th>
-              <th
-                *ngFor="
-                  let header of visualizationLayer['analytics']['headers']
-                "
-              >
-                {{ header.name }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="
-                let dataRow of visualizationLayer['analytics']['rows'];
-                let i = index;
-                trackBy: trackByFn
-              "
-            >
-              <td *ngFor="let data of dataRow">
-                {{ data }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div
-        *ngIf="
-          visualizationLayer['analytics']['rows'] &&
-          visualizationLayer['analytics']['rows'].length == 0
-        "
-        style="margin-top: 50px"
-      >
-        <h4 style="text-align: center">No data</h4>
-      </div>
-    </mat-card>
-  </div>
+    <ng-container
+      matColumnDef="{{ column }}"
+      *ngFor="let column of displayedColumns"
+    >
+      <th mat-header-cell *matHeaderCellDef>{{ headersReferences[column] }}</th>
+      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[10, 15, 20, 25, 50, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
 </div>
