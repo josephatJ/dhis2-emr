@@ -1,4 +1,4 @@
-<form class="dataset-form">
+<!-- <form class="dataset-form">
   <mat-form-field class="dataset-form-full-width">
     <input
       type="text"
@@ -18,4 +18,27 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-</form>
+</form> -->
+
+<div>
+  <label style="margin-bottom: 0 !important; color: #666">Select dataset</label>
+  <mat-form-field class="dataset-form-full-width" style="margin-top: -1rem">
+    <mat-select
+      (selectionChange)="onSelectionChange($event)"
+      name="searchString"
+    >
+      <ngx-mat-select-search
+        [(ngModel)]="searchString"
+        [placeholderLabel]="'Search...'"
+        [noEntriesFoundLabel]="'Not found'"
+        name="search"
+      ></ngx-mat-select-search>
+      <mat-option
+        *ngFor="let dataSet of dataSets | stringFilterBy: searchString"
+        [value]="dataSet.id"
+      >
+        {{ dataSet.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
