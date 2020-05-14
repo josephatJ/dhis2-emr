@@ -5,8 +5,17 @@
       <hr style="margin: 0" />
     </div>
     <div class="col-12">
-      <div *ngIf="reportsList$ | async">
-        <app-reports-list [reports]="reportsList$ | async"></app-reports-list>
+      <div
+        *ngIf="
+          (reportsList$ | async) &&
+          (interactiveReportsList$ | async) &&
+          (interactiveReportsList$ | async)['length'] > 0
+        "
+      >
+        <app-reports-list
+          [reports]="reportsList$ | async"
+          [interactiveReports]="interactiveReportsList$ | async"
+        ></app-reports-list>
       </div>
     </div>
   </div>

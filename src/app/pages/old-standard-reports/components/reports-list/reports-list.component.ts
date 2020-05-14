@@ -9,12 +9,16 @@ import { Router } from '@angular/router';
 export class ReportsListComponent implements OnInit {
   @Input() reports: Array<any>;
   @Input() currentUser: any;
+  @Input() interactiveReports: any;
   page: number = 1;
   itemsPerPage: number = 10;
   searchingItem: string = '';
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.interactiveReports);
+    console.log(this.reports);
+  }
 
   onUpdatePageSize(e) {
     this.itemsPerPage = e;

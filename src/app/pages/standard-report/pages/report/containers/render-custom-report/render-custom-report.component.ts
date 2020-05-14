@@ -6,7 +6,8 @@ import {
   renderAnalyticsData,
   processConfigs,
   renderFavorite,
-  getFavouriteDataDimensions
+  getFavouriteDataDimensions,
+  processTable
 } from 'src/app/core/helpers/reportHelpers';
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
@@ -104,11 +105,16 @@ export class RenderCustomReportComponent implements OnInit {
                 this.period$
               )
               .subscribe(data => {
-                // tslint:disable-next-line: prefer-const
                 this.favId = dataToFetch['id'];
 
                 console.log('unformatted data ::: ', data);
-                let options = processConfigs(favouriteConfigs, data);
+
+                let options;
+                if (dataToFetch['type'] == 'reportTables') {
+                  options = processTable(data, favouriteConfigs);
+                } else {
+                  options = processConfigs(favouriteConfigs, data);
+                }
 
                 renderFavorite(dataToFetch['id'], options);
               });
