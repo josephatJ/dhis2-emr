@@ -56,16 +56,12 @@ export class ReportingRatesSummaryComponent implements OnInit {
     this.dataSets$ = this.store.select(getLoadedDataSets);
   }
 
-  getDataSet(dataSetId) {
-    this.dataSetId = dataSetId;
+  onDataSetSelectionChanged(dataSet) {
+    this.dataSetId = dataSet.id;
     this.selectionChanged = false;
     setTimeout(() => {
-      this.dataSets$.subscribe(dataSets => {
-        if (dataSets) {
-          this.selectedDataSet = _.filter(dataSets, { id: dataSetId })[0];
-          this.selectionChanged = true;
-        }
-      });
+      this.selectedDataSet = dataSet;
+      this.selectionChanged = true;
     }, 10);
   }
 

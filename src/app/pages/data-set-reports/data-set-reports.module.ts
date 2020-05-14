@@ -10,12 +10,14 @@ import { ReportComponent } from './components/report/report.component';
 import { dataSetEffects } from './store/effects';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FilterByInputTextPipe } from './pipes/filter-by-input-text.pipe';
 
 @NgModule({
   declarations: [
     DataSetReportComponent,
     RenderDataSetReportComponent,
-    ReportComponent
+    ReportComponent,
+    FilterByInputTextPipe
   ],
   imports: [
     CommonModule,

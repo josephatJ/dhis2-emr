@@ -12,35 +12,14 @@
       class="col-12  filters"
       *ngIf="(dataSets$ | async) && (dataSets$ | async).length > 0"
     >
-      <div style="width: 20%; float: left;">
-        <select
-          class="mat-stroked-button"
-          style="width: 100%; padding: 8px;"
-          (change)="getDataSet($event.target.value)"
+      <div style="width: 30%; float: left;">
+        <ngx-dataset-filter
+          [dataSets]="dataSets$ | async"
+          (selectedDataSet)="onDataSetSelectionChanged($event)"
         >
-          <option value="">Select dataset</option>
-          <option
-            [value]="dataSet.id"
-            *ngFor="let dataSet of dataSets$ | async"
-            >{{ dataSet.name }}</option
-          >
-        </select>
+        </ngx-dataset-filter>
       </div>
-      <div style="width: 10%; float: left;" *ngIf="dataSetDimensions$ | async">
-        <select
-          style="width: 100%; padding: 8px;"
-          (change)="getDataSetDimension($event.target.value)"
-        >
-          <option value="">Select Dimension</option>
-          <option
-            [value]="dataSetDimension.id"
-            *ngFor="let dataSetDimension of dataSetDimensions$ | async"
-          >
-            {{ dataSetDimension.displayName }}</option
-          >
-        </select>
-      </div>
-      <div style="width: 40%; float: left;">
+      <div style="width: 40%; float: left; margin-left: 20px; margin-top: 10px">
         <ngx-dhis2-selection-filters
           [selectionFilterConfig]="selectionFilterConfig"
           (filterUpdate)="onFilterUpdate($event)"
