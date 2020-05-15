@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class OrgUnitsGroupSetsService {
   loadOrgUnitsGroupSets(): Observable<any> {
     return this.httpClient.get(
-      'organisationUnitGroupSets.json?fields=id,displayName,organisationUnitGroups[id,displayName]&paging=false'
+      'organisationUnitGroupSets.json?fields=id,name,displayName,organisationUnitGroups[id,name,displayName]&paging=false'
     );
   }
 

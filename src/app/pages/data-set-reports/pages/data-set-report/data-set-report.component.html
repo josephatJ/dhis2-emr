@@ -11,9 +11,10 @@
     class="col-12 filters"
     *ngIf="(dataSets$ | async) && (dataSets$ | async).length > 0"
   >
-    <div style="min-width: 30%; float: left;">
+    <div style="min-width: 6%; float: left;">
       <ngx-dataset-filter
         [dataSets]="dataSets$ | async"
+        [itemType]="'Dataset'"
         (selectedDataSet)="onDataSetSelectionChanged($event)"
       ></ngx-dataset-filter>
     </div>
@@ -59,7 +60,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div style="width: 40%; float: left; margin-left: 20px;margin-top: 18px;">
+    <div style="width: 40%; float: left; margin-left: 2px;">
       <ngx-dhis2-selection-filters
         [selectionFilterConfig]="selectionFilterConfig"
         (filterUpdate)="onFilterUpdate($event)"

@@ -12,15 +12,14 @@
       <div style="float: left;">
         <!--org unit filter-->
         <button
+          style="height: 37px"
           mat-stroked-button
-          style="min-width: 120px"
           [title]="'Filter by organisation unit'"
           (click)="toggleOrgUnitFilter($event)"
         >
           <i class="fa fa-sitemap"></i>
           <span>Org unit</span>
           <span
-            style="margin-left: 5px"
             class="badge badge-secondary"
             *ngIf="selectedOu && selectedOu.name"
             >{{ selectedOu?.name }}</span
@@ -30,7 +29,7 @@
             [ngClass]="orgUnitFilterSet ? 'fa fa-caret-up' : 'fa fa-caret-down'"
           ></i> -->
         </button>
-        <div *ngIf="orgUnitFilterSet">
+        <div *ngIf="orgUnitFilterSet" style="width: 350px;">
           <ngx-dhis2-org-unit-filter
             [selectedOrgUnitItems]="selectedOrgUnitItems"
             [orgUnitFilterConfig]="orgUnitFilterConfig"
@@ -41,7 +40,7 @@
         </div>
         <!--end of org unit filter-->
       </div>
-      <div style="width: 20%; float: left; margin-left: 10px">
+      <!-- <div style="width: 20%; float: left; margin-left: 10px">
         <select
           class="mat-stroked-button"
           style="width: 100%; padding: 8px;"
@@ -54,6 +53,14 @@
             >{{ orgUnitsGroupSet.displayName }}</option
           >
         </select>
+      </div> -->
+      <div style="min-width: 6%; float: left; margin-left: 2px">
+        <ngx-dataset-filter
+          [dataSets]="orgUnitsGroupSets$ | async"
+          [itemType]="'Ou Groupset'"
+          (selectedDataSet)="onSelectionChanged($event)"
+        >
+        </ngx-dataset-filter>
       </div>
     </div>
     <div class="col-12">

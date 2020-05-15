@@ -1,27 +1,18 @@
-<!-- <form class="dataset-form">
-  <mat-form-field class="dataset-form-full-width">
-    <input
-      type="text"
-      placeholder="Select dataset"
-      aria-label="Number"
-      matInput
-      [formControl]="dataSetFormControl"
-      [matAutocomplete]="auto"
-    />
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option
-        (onSelectionChange)="onDataSetSelectionChanged(dataSet)"
-        *ngFor="let dataSet of filteredOptions | async"
-        [value]="dataSet.name"
-      >
-        {{ dataSet.name }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form> -->
-
-<div>
-  <label style="margin-bottom: 0 !important; color: #666">Select dataset</label>
+<button
+  mat-stroked-button
+  title="Select dataset"
+  (click)="toggleCurrentFilter($event)"
+>
+  <i class="fa fa-list"></i>{{ itemType }}
+  <span class="badge badge-secondary" *ngIf="selectedItem">
+    {{ selectedItem.name }}
+  </span>
+  <i
+    class="fa {{ showSelections == true ? 'fa-caret-up' : 'fa-caret-down' }}"
+  ></i>
+</button>
+<div *ngIf="showSelections">
+  <!-- <label style="margin-bottom: 0 !important; color: #666">Select dataset</label>
   <mat-form-field class="dataset-form-full-width" style="margin-top: -1rem">
     <mat-select
       (selectionChange)="onSelectionChange($event)"
@@ -40,5 +31,27 @@
         {{ dataSet.name }}
       </mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
+
+  <div class="mat-elevation-z1 list-items p-2">
+    <mat-form-field class="w-100">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="onSearch($event)" />
+    </mat-form-field>
+    <div class="list-contents">
+      <mat-nav-list>
+        <a
+          mat-list-item
+          (click)="onSelectDataSet(dataSet)"
+          *ngFor="let dataSet of dataSets | stringFilterBy: searchString"
+          >{{ dataSet.name }}</a
+        >
+      </mat-nav-list>
+    </div>
+    <div class="d-flex justify-content-end mt-2">
+      <button mat-stroked-button (click)="$event.stopPropagation(); onClose()">
+        Close
+      </button>
+    </div>
+  </div>
 </div>

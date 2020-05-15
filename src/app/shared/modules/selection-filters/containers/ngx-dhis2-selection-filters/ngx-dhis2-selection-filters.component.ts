@@ -109,7 +109,6 @@ export class NgxDhis2SelectionFiltersComponent implements OnInit {
     if (!this.dataSelections) {
       this.dataSelections = [];
     }
-
     // Set selection parameters
     this._setSelectionParameters();
   }

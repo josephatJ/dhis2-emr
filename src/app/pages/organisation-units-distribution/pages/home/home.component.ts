@@ -54,6 +54,19 @@ export class HomeComponent implements OnInit {
       }, 100);
     }
   }
+
+  onSelectionChanged(orgUnitsGroupSet) {
+    this.filterChanged = false;
+    if (orgUnitsGroupSet) {
+      this.orgUnitFilterSet = false;
+      this.filterSelections['ouGroupSet'] = { id: orgUnitsGroupSet.id };
+      this.orgUnitFilterSet = false;
+      setTimeout(() => {
+        this.filterChanged = true;
+      }, 100);
+    }
+  }
+
   onFilterUpdate(selection, type) {
     this.orgUnitFilterSet = !this.orgUnitFilterSet;
     this.selectedOrgUnitItems = selection['items'];
