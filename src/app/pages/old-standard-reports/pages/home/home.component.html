@@ -8,14 +8,12 @@
       <div
         *ngIf="
           (reportsList$ | async) &&
-          (interactiveReportsList$ | async) &&
-          (interactiveReportsList$ | async)['length'] > 0
+          (reportsList$ | async)['length'] > 0 &&
+          (countOfLoadedReportTypes$ | async) &&
+          (countOfLoadedReportTypes$ | async) > 1
         "
       >
-        <app-reports-list
-          [reports]="reportsList$ | async"
-          [interactiveReports]="interactiveReportsList$ | async"
-        ></app-reports-list>
+        <app-reports-list [reports]="reportsList$ | async"></app-reports-list>
       </div>
     </div>
   </div>

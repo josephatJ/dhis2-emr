@@ -25,7 +25,8 @@ const reducer = createReducer(
   })),
   on(addLoadedStdReportsList, (state, { reportsList }) => ({
     ...state,
-    reportsList,
+    reportsList: [...state.reportsList, ...reportsList],
+    countOfReportsTypesLoaded: state.countOfReportsTypesLoaded + 1,
     ...loadedBaseState
   })),
   on(loadingOldStdReportsListFails, (state, { error }) => ({

@@ -29,3 +29,8 @@ export const getOldReportMetadataByReportId = createSelector(
   getOldReportsMetadataEntities,
   (entities, props) => entities[props.id]
 );
+
+export const getCountOfLoadedReportTypes = createSelector(
+  getOldReportsState,
+  (state: OldReportsState) => state.countOfReportsTypesLoaded
+);

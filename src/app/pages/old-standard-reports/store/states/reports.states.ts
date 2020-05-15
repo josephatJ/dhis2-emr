@@ -6,6 +6,7 @@ export interface OldReportsState extends BaseState, EntityState<any> {
   loadingReportMetadata: boolean;
   loadedReportsMetadata: boolean;
   reportMetadataError: any;
+  countOfReportsTypesLoaded: number;
 }
 
 export const oldReportsAdapter: EntityAdapter<any> = createEntityAdapter<any>();
@@ -14,5 +15,6 @@ export const initialOldReportsState = oldReportsAdapter.getInitialState({
   reportsList: [],
   loadingReportMetadata: false,
   loadedReportsMetadata: false,
-  reportMetadataError: null
+  reportMetadataError: null,
+  countOfReportsTypesLoaded: 0
 });

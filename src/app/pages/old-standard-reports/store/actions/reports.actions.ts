@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
 export const loadStdReportsList = createAction(
-  '[Reports list] load old reports list'
+  '[Reports list] load reports list',
+  props<{ reportsTypes: any[] }>()
 );
 
 export const addLoadedStdReportsList = createAction(

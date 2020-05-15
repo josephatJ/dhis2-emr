@@ -3,9 +3,10 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/store/reducers';
 import { Observable } from 'rxjs';
 import { loadStdReportsList } from '../../store/actions';
-import { getOldReportsList } from '../../store/selectors';
-import { getReports } from 'src/app/pages/standard-report/store/actions';
-import { getReportListState } from 'src/app/pages/standard-report/store/selectors';
+import {
+  getOldReportsList,
+  getCountOfLoadedReportTypes
+} from '../../store/selectors';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,24 @@ import { getReportListState } from 'src/app/pages/standard-report/store/selector
 })
 export class HomeComponent implements OnInit {
   reportsList$: Observable<any>;
-  interactiveReportsList$: Observable<any>;
+  countOfLoadedReportTypes$: Observable<number>;
+  reportTypes: any[] = [
+    {
+      type: 'reports',
+      url: 'reports.json?paging=false&fields=*'
+    },
+    {
+      type: 'interactive-reports',
+      url: 'dataStore/report-templates/reportsList'
+    }
+  ];
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadStdReportsList());
-    this.store.dispatch(getReports());
+    this.store.dispatch(loadStdReportsList({ reportsTypes: this.reportTypes }));
     this.reportsList$ = this.store.select(getOldReportsList);
-    this.interactiveReportsList$ = this.store.select(getReportListState);
+    this.countOfLoadedReportTypes$ = this.store.select(
+      getCountOfLoadedReportTypes
+    );
   }
 }
