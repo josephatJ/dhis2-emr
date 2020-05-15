@@ -39,10 +39,12 @@ export class OldReportsEffects {
     this.actions$.pipe(
       ofType(loadReportMetadata),
       switchMap(action =>
-        this.reportsService.loadReportContents(action.reportId).pipe(
-          map(report => addLoadedReportMetadata({ report })),
-          catchError(error => of(loadingReportMetadataFails({ error })))
-        )
+        this.reportsService
+          .loadReportContents(action.reportId, action.reportType)
+          .pipe(
+            map(report => addLoadedReportMetadata({ report })),
+            catchError(error => of(loadingReportMetadataFails({ error })))
+          )
       )
     )
   );

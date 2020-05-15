@@ -24,6 +24,8 @@
       <div>
         <app-render-report
           [reportHtml]="(reportMetadata$ | async)?.designContent"
+          [reportType]="reportType"
+          [reportId]="reportId"
         >
         </app-render-report>
       </div>

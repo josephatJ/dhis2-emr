@@ -14,41 +14,21 @@ import { getOldReportMetadataByReportId } from '../../store/selectors';
 export class ReportComponent implements OnInit {
   reportMetadata$: Observable<any>;
   filterSelections: any;
-  selectionChanged: boolean = false;
-  selectionFilterConfig: any = {
-    showDataFilter: false,
-    showPeriodFilter: true,
-    showOrgUnitFilter: true,
-    showLayout: false,
-    showFilterButton: false,
-    orgUnitFilterConfig: {
-      singleSelection: true,
-      showUserOrgUnitSection: false,
-      showOrgUnitLevelGroupSection: false,
-      showOrgUnitGroupSection: false,
-      showOrgUnitLevelSection: false,
-      reportUse: false,
-      additionalQueryFields: [],
-      batchSize: 400
-    }
-  };
-  selectedOrgUnitItems: Array<any> = [];
+  reportType: string;
+  reportId: string;
   constructor(private route: ActivatedRoute, private store: Store<State>) {}
 
   ngOnInit(): void {
+    this.reportId = this.route.snapshot.params.id;
+    this.reportType = this.route.snapshot.params.type;
     this.store.dispatch(
-      loadReportMetadata({ reportId: this.route.snapshot.params.id })
+      loadReportMetadata({
+        reportId: this.reportId,
+        reportType: this.reportType
+      })
     );
     this.reportMetadata$ = this.store.select(getOldReportMetadataByReportId, {
-      id: this.route.snapshot.params.id
+      id: this.reportId
     });
-  }
-
-  onFilterUpdate(selections) {
-    this.selectionChanged = false;
-    setTimeout(() => {
-      this.selectionChanged = true;
-    }, 100);
-    this.filterSelections = selections;
   }
 }

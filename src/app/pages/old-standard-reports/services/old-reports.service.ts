@@ -10,10 +10,14 @@ export class OldReportsService {
     return this.httpClient.get(reportType.url);
   }
 
-  loadReportContents(reportId): Observable<any> {
-    return this.httpClient.get(
-      'reports/' + reportId + '.json?paging=false&fields=id,name,*'
-    );
+  loadReportContents(reportId, reportType): Observable<any> {
+    if (reportType != 'interactive-report') {
+      return this.httpClient.get(
+        'reports/' + reportId + '.json?paging=false&fields=id,name,*'
+      );
+    } else {
+      return this.httpClient.get('dataStore/report-templates/' + reportId);
+    }
   }
 
   constructor(private httpClient: NgxDhis2HttpClientService) {}

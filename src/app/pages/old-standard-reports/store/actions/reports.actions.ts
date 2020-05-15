@@ -17,7 +17,7 @@ export const loadingOldStdReportsListFails = createAction(
 
 export const loadReportMetadata = createAction(
   '[Old Reports] load metadata of the report',
-  props<{ reportId: string }>()
+  props<{ reportId: string; reportType: string }>()
 );
 
 export const addLoadedReportMetadata = createAction(

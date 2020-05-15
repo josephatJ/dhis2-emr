@@ -10,6 +10,8 @@ import { formatDataDimensionsSelections } from '../../helpers/filter-selections.
 })
 export class RenderReportComponent implements OnInit, AfterViewInit {
   @Input() reportHtml: any;
+  @Input() reportType: string;
+  @Input() reportId: string;
   filterSelections: any;
   orgUnit: any;
   period: any;
