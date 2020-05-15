@@ -2,8 +2,6 @@ import * as _ from 'lodash';
 import * as Highcharts from 'highcharts';
 import { cleanFavouriteData } from './favouriteHelpers';
 
-export function fetchFunctionsData() {}
-
 export function getFavouriteDataDimensions(configs: any) {
   let Items = [];
   configs.dataDimensionItems.forEach(dataDimensionItem => {
@@ -15,6 +13,15 @@ export function getFavouriteDataDimensions(configs: any) {
   });
 
   return Items.join(';');
+}
+
+export function processTable(tableData, tableConfigs) {
+  console.log(
+    'table-configurations :: ',
+    tableConfigs,
+    'table-data',
+    tableData
+  );
 }
 
 export function renderAnalyticsData(id: string, value: string) {
@@ -35,6 +42,8 @@ export function prepareAnalyticsUrl(favoriteConfig: any) {
 
   console.log('analytics url', url);
 }
+
+export function fetchFunctionsData() {}
 
 export function processConfigs(
   favouriteConfigurations: any,

@@ -15,18 +15,25 @@ export class ReportsListComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @Input() reports: Array<any>;
   @Input() currentUser: any;
-  displayedColumns: string[] = ['position', 'name', 'action'];
-  dataSource: any;
-
-  constructor() {}
+  @Input() interactiveReports: any;
+  page: number = 1;
+  itemsPerPage: number = 10;
+  searchingItem: string = '';
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
+    console.log(this.interactiveReports);
+    console.log(this.reports);
+
     this.dataSource = new MatTableDataSource(
       formatReportsForDataTable(this.reports)
     );
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
+  displayedColumns: string[] = ['position', 'name', 'action'];
+  dataSource: any;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
