@@ -8,7 +8,7 @@ export function formatResourcesForDataTable(items) {
       name: item.name,
       type: item.external ? 'Link' : 'File',
       action: {
-        url: item.external ? item.url : item.href,
+        url: item.external ? item.url : item.href + '/data',
         external: item.external
       }
     });
