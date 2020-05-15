@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
-import { OldStandardReportRoutingModule } from './old-standard-reports-routing.module';
 import { reducers } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/effects';
@@ -11,6 +10,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RenderReportComponent } from './components/render-report/render-report.component';
 import { FormsModule } from '@angular/forms';
 import { FilterByNamePipe } from 'src/app/core/pipes';
+import { StandardReportRoutingModule } from './standard-reports-routing.module';
 
 @NgModule({
   declarations: [
@@ -23,11 +23,11 @@ import { FilterByNamePipe } from 'src/app/core/pipes';
   imports: [
     CommonModule,
     FormsModule,
-    OldStandardReportRoutingModule,
+    StandardReportRoutingModule,
     ...reducers,
     EffectsModule.forFeature(effects),
     SharedModule
   ],
   providers: []
 })
-export class OldStandardReportsModule {}
+export class StandardReportsModule {}

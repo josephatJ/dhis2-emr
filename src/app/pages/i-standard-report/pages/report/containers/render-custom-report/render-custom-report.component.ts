@@ -15,8 +15,8 @@ import { Observable } from 'rxjs';
 import {
   getOrgUnitState,
   getPeriodState
-} from 'src/app/pages/standard-report/store/selectors';
-import { ReportsService } from 'src/app/pages/standard-report/services/reports.service';
+} from 'src/app/pages/i-standard-report/store/selectors';
+import { ReportsService } from 'src/app/pages/i-standard-report/services/reports.service';
 import { addAnalyticsToVisualizationLayer } from 'src/app/core/helpers/formatAnalytics';
 
 @Component({

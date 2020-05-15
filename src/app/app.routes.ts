@@ -12,15 +12,15 @@ export const routes: Routes = [
   {
     path: 'standard-reports',
     loadChildren: () =>
-      import('./pages/standard-report/standard-report.module').then(
-        m => m.StandardReportModule
+      import('./pages/standard-reports/standard-reports.module').then(
+        m => m.StandardReportsModule
       )
   },
   {
-    path: 'old-standard-reports',
+    path: 'i-standard-reports',
     loadChildren: () =>
-      import('./pages/old-standard-reports/old-standard-reports.module').then(
-        m => m.OldStandardReportsModule
+      import('./pages/i-standard-report/standard-report.module').then(
+        m => m.IStandardReportModule
       )
   },
   {

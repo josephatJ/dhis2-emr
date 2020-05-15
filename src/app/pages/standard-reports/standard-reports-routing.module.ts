@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { ReportComponent } from './pages/report/report.component';
+import { ReportComponent } from './components/report/report.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    children: [{ path: ':id', component: ReportComponent }]
+    component: HomeComponent
+  },
+  {
+    path: ':type/:id',
+    component: ReportComponent
   }
 ];
 
