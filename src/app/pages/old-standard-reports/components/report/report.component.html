@@ -5,7 +5,7 @@
 <div style="height:100vh;background-color: #FFF;">
   <div class="row" style="padding: 10px" *ngIf="reportMetadata$ | async">
     <div class="col-12" style="margin-bottom: 10px">
-      <h3>{{ (reportMetadata$ | async)?.name }}</h3>
+      <h3>{{ (reportMetadata$ | async)?.displayName }}</h3>
       <hr style="margin: 0" />
     </div>
     <!-- <div class="col-12 filters">
