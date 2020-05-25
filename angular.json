@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "interactive-reports": {
+    "dhis2-emr": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/interactive-reports",
+            "outputPath": "dist/dhis2-emr",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,19 +63,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "interactive-reports:build",
+            "browserTarget": "dhis2-emr:build",
             "proxyConfig": "proxy-config.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "interactive-reports:build:production"
+              "browserTarget": "dhis2-emr:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "interactive-reports:build"
+            "browserTarget": "dhis2-emr:build"
           }
         },
         "test": {
@@ -104,7 +104,7 @@
         }
       }
     },
-    "interactive-reports-e2e": {
+    "dhis2-emr-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -112,11 +112,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "interactive-reports:serve"
+            "devServerTarget": "dhis2-emr:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "interactive-reports:serve:production"
+              "devServerTarget": "dhis2-emr:serve:production"
             }
           }
         },
@@ -130,7 +130,7 @@
       }
     }
   },
-  "defaultProject": "interactive-reports",
+  "defaultProject": "dhis2-emr",
   "cli": {
     "defaultCollection": "@ngrx/schematics",
     "analytics": "28372e46-feac-495e-9a7e-f24c2f59bc6a"

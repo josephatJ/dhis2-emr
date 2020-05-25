@@ -1,0 +1,78 @@
+.header a {
+  text-decoration: none;
+  color: #288c9f;
+}
+
+.card {
+  margin-bottom: 1.875rem;
+  border: none;
+  box-shadow: 0 2px 18px 1px rgba(49, 53, 72, 0.1);
+  border-radius: 0.45rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 0.35rem;
+}
+.card,
+.card-footer,
+.card-header {
+  background-color: #fff;
+}
+
+.justify-content-around {
+  justify-content: space-around !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+@media (min-width: 992px) {
+  .col-lg-8 {
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+}
+
+#patient-profile .patient-img {
+  width: 75px;
+}
+
+.mb-1,
+.my-1 {
+  margin-bottom: 1rem !important;
+}
+.rounded-circle {
+  border-radius: 50% !important;
+}
+.card-img-top {
+  width: 100%;
+  border-top-left-radius: calc(0.35rem - 1px);
+  border-top-right-radius: calc(0.35rem - 1px);
+}
+.img-fluid,
+.img-thumbnail {
+  max-width: 80px;
+  height: 70px;
+}
+img {
+  border-style: none;
+}
+img,
+svg {
+  vertical-align: middle;
+}
+
+.details {
+  padding: 4px;
+}
+
+.details span {
+  color: #000000ad;
+}

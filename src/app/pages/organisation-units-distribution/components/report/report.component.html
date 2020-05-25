@@ -1,9 +1,0 @@
-<div *ngIf="orgUnitDistributionEntity$ | async">
-  <app-visualization
-    [ouDistributionAnalytics]="(orgUnitDistributionEntity$ | async)?.data"
-  ></app-visualization>
-</div>
-
-<div *ngIf="!(orgUnitDistributionEntity$ | async)">
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</div>

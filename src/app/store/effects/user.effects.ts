@@ -9,6 +9,7 @@ import {
   loadCurrentUser,
   loadCurrentUserFail
 } from '../actions';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserEffects implements OnInitEffects {
@@ -16,7 +17,7 @@ export class UserEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(loadCurrentUser),
       switchMap(() =>
-        this.httpClient.me().pipe(
+        this.httpClient.get('../../../api/me.json?fields=id,name,*').pipe(
           map((currentUser: User) => addCurrentUser({ currentUser })),
           catchError((error: any) => of(loadCurrentUserFail({ error })))
         )
@@ -30,6 +31,7 @@ export class UserEffects implements OnInitEffects {
 
   constructor(
     private actions$: Actions,
-    private httpClient: NgxDhis2HttpClientService
+    private httpClientService: NgxDhis2HttpClientService,
+    private httpClient: HttpClient
   ) {}
 }

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
-import { NgxDhis2MenuModule } from '@iapps/ngx-dhis2-menu';
 import { EffectsModule } from '@ngrx/effects';
 import {
   RouterStateSerializer,
@@ -48,11 +47,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         organisationUnitGroups: 'id'
       }
     }),
-    /**
-     * Menu  module
-     */
-    NgxDhis2MenuModule,
-
     /**
      * Translation module
      */

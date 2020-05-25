@@ -1,88 +1,10 @@
-<ngx-dhis2-menu></ngx-dhis2-menu>
-
 <div class="application-content continer-fluid">
   <div class="row" style="margin-left: 0px;margin-right: 0px;padding:0px;">
     <div
-      [ngClass]="{
-        'col-md-2': isLeftPanelSet == true,
-        'hide-left-menu': isLeftPanelSet == false
-      }"
-      style="padding-right: 0px;"
-    >
-      <button
-        routerLink=""
-        title="Home"
-        class="home-btn"
-        style="margin-left: 45px;"
-      >
-        <i class="fa fa-home"></i>
-      </button>
-      <button
-        *ngIf="isLeftPanelSet"
-        (click)="toggleLeftMenu()"
-        class="control-arrows"
-        title="Close"
-        style="float: right"
-      >
-        <i class="fa fa-arrow-left"></i>
-      </button>
-    </div>
-    <div
-      style="background-color: transparent"
-      [ngClass]="{
-        'col-md-10': isLeftPanelSet == true,
-        'col-md-12': isLeftPanelSet == false
-      }"
-    >
-      <button
-        *ngIf="!isLeftPanelSet"
-        (click)="toggleLeftMenu()"
-        class="control-arrows"
-        title="Expand"
-        style="float: left"
-      >
-        <i class="fa fa-arrow-right"></i>
-      </button>
-    </div>
-    <div
-      [ngClass]="{
-        'col-md-2': isLeftPanelSet == true,
-        'hide-left-menu': isLeftPanelSet == false
-      }"
-      class="reports-list-menu"
-      style="height: calc(100vh - 48px);background-color: #f2f2f2;"
-    >
-      <ul class="reports-list">
-        <li routerLink="standard-reports" routerLinkActive="active-route">
-          Standard Reports
-        </li>
-        <!-- <li routerLink="old-standard-reports" routerLinkActive="active-route">
-          Old Standard Reports
-        </li> -->
-        <li routerLink="datasets-reports" routerLinkActive="active-route">
-          Dataset Reports
-        </li>
-        <li routerLink="reporting-rates" routerLinkActive="active-route">
-          Reporting Rate Summary
-        </li>
-        <li routerLink="resources" routerLinkActive="active-route">
-          Resources
-        </li>
-        <li
-          routerLink="organisation-units-distribution"
-          routerLinkActive="active-route"
-        >
-          Organisation Units Reports
-        </li>
-      </ul>
-    </div>
-    <div
-      style="height:100vh;background-color: #FFF;"
-      [ngClass]="{
-        'col-md-10': isLeftPanelSet == true,
-        'col-md-12': isLeftPanelSet == false
-      }"
-    >
+      class="col-md-12"
+      style="height: 50px; background-color: #288c9f"
+    ></div>
+    <div class="col-md-12">
       <router-outlet></router-outlet>
     </div>
   </div>

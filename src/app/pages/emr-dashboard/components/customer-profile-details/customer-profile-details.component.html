@@ -1,0 +1,90 @@
+<div>
+  <div class="header">
+    <div>
+      <a routerLink="/clients">Customers</a> /
+      <a routerLink="/clients/{{ customerBasicDetails.uid }}">{{
+        customerBasicDetails.name
+      }}</a>
+
+      <button mat-stroked-button style="float: right">
+        Add encounter (New visit)
+      </button>
+    </div>
+  </div>
+  <div class="profile-contents row" style="margin-top:20px">
+    <div class="basic-info col-md-9">
+      <div class="card" style="min-height: 160px;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-4 col-md-4 d-flex justify-content-around">
+              <div class="patient-img-name text-center">
+                <img
+                  class="card-img-top mb-1 patient-img img-fluid rounded-circle"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAADZElEQVR4nO3azYscRRjH8c9sxiCSGIWQmBgPCoqCr9GjkIAYQ0S9KiiKHsSjMUQPURD0aEzwrpcY/wC9qyfRhDViRBHEw27WxHeSKFk1ux5qhqluZrLtdlfPDNYXmm16t3/PU11VTz311JLJZDKZTCaTyWQy/0M6Y7K5HTdjU+/Zj/gan2N5DD61wjU4hFNCI4ddp/AmNo/JxyR0sB/njW54+TqHfVoYoakNXI538Gjp+Wl8hIWeD1uwUxglMe/haVxI6WQqOkID4p49jl2YGfL3M3gAs6V3jhpPrKrNfsWGHMSaCu91hVgRv/tCIh+TsQlnDRrwxio0DivGhPL0mGjiHjyuWs+X6SpOh4ONeZeYjuJSt6uG1u5IZ96UxIJ7DJxeMDzgVWVGWDH6ettrezfEQNPcFN1/jKUaWks9jWHajZDiA2yN7ucb0JuL7q9tQK9Aig8Q5/JNzNlYo/F9QooPsBDdN9Fj20ZoTyx3GwStH9QPgmcivbtqe9cC5WVwdw2tPZHOnClZBglb2r7js0JS81/p4oR62eTYKKfCh1ah8ZZiKjx1NYJ9ihuaw6qNhK5i45fxfCIfk9IRtrJxQ2aFmDBqO7xHcdgv44iEc7+NgsjbeKz0/IxBQYSwXO40qBH2OYpnTGlBpE9H2M+fU70kdlYY9lMT9auwWdjSzhvd8Dkh2pdHQjLGVRa/UyiL94scp/GNwfzPZDLt0HYMWIs7cD2uwtW957/hd3yPL/BXy34l5Ta8jmNYtPISuIjP8BpuHYO/jXCZcKJzUvW1f9T1JZ6yug3ViqSYAo/jVdww5HfL+BZf4Wdh6BOmwkahx28c4dd3eEXIDieSrfjA8IPOI3gIGyrobMDDeNfw7PF94Sxxorgfvyo6+hNexLoauuvwUk8r1v4F99XQbZQnhajdd+6isPWt0/Ay63uaFyM7i3iiQRur4jmhdh/n8jsS2tvRs9G3t4RnE9q7JA/i78iZk7iuBbtbFM8M/8EjLdgtcLvif3wcUy3ANcWV+DSyf17IN1qhK5z4xoeW2y75Rho2Cktq348TQv6RnAOR0QvCaBgXt+DPyJ8DqQ3O4I/I4MupDVZgr+JUSHHaVaA/9z7R0pBbgTX40CAWJecK3Nv7OSmsFZbI9eN2JJPJZDKZTGZq+Bdm5CUTjBEgIAAAAABJRU5ErkJggg=="
+                />
+
+                <h5>
+                  <span *ngIf="customerBasicDetails.title">{{
+                    customerBasicDetails.title
+                  }}</span>
+                  {{ customerBasicDetails.name }}
+                  <span *ngIf="customerBasicDetails.gender">
+                    ({{ customerBasicDetails.gender }})
+                  </span>
+                </h5>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 d-flex justify-content-around">
+              <div class="patient-info">
+                <ul class="list-unstyled">
+                  <li>
+                    <div class="details">
+                      Facility:
+                      <span>
+                        {{ facility.name }}
+                      </span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="details">
+                      Patient ID:
+                      <span>
+                        {{ customerBasicDetails.internalPatientId }}
+                      </span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="details">
+                      Birth:
+                      <span>
+                        {{ customerBasicDetails.dob | date }} ({{
+                          customerBasicDetails.age
+                        }})
+                      </span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="details">
+                      Phone:
+                      <span>
+                        {{ customerBasicDetails.phone }}
+                      </span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="details">
+                      Address: <span>{{ customerBasicDetails.address }}</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <app-vitals [clientId]="customer.id" [programId]="programId"></app-vitals>
+    </div>
+  </div>
+</div>

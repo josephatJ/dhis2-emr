@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-  NgxDhis2HttpClientService,
-  SystemInfo
-} from '@iapps/ngx-dhis2-http-client';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { addSystemInfo, loadSystemInfo, loadSystemInfoFail } from '../actions';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SystemInfoEffects implements OnInitEffects {
@@ -15,8 +12,8 @@ export class SystemInfoEffects implements OnInitEffects {
     this.actions$.pipe(
       ofType(loadSystemInfo),
       switchMap(() =>
-        this.httpClient.systemInfo().pipe(
-          map((systemInfo: SystemInfo) =>
+        this.httpClient.get('../../../api/system/info').pipe(
+          map((systemInfo: any) =>
             addSystemInfo({
               systemInfo
             })
@@ -31,8 +28,5 @@ export class SystemInfoEffects implements OnInitEffects {
     return loadSystemInfo();
   }
 
-  constructor(
-    private actions$: Actions,
-    private httpClient: NgxDhis2HttpClientService
-  ) {}
+  constructor(private actions$: Actions, private httpClient: HttpClient) {}
 }

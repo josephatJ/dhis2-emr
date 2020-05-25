@@ -1,0 +1,24 @@
+<!-- <div
+  class="patients-dash"
+  *ngIf="
+    (currentUser$ | async) &&
+    (systemAttributes$ | async) &&
+    (systemAttributesLoadedState$ | async)
+  "
+>
+  <app-patients-finder
+    [currentUser]="currentUser$ | async"
+    [systemAttributes]="systemAttributes$ | async"
+  ></app-patients-finder>
+</div>
+<div
+  *ngIf="
+    !(currentUser$ | async) &&
+    !(systemAttributes$ | async) &&
+    !(systemAttributesLoadedState$ | async)
+  "
+>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div> -->
+
+<router-outlet></router-outlet>

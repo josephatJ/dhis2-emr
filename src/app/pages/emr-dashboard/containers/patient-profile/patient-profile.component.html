@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-9">
+    <div class="header">
+      <h3>Patient Profile</h3>
+      <hr />
+    </div>
+    <div
+      *ngIf="
+        !(customersLoadedState$ | async) ||
+        !(systemAttributesLoadedState$ | async)
+      "
+    >
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div
+      *ngIf="
+        (customersLoadedState$ | async) &&
+        (systemAttributesLoadedState$ | async)
+      "
+    >
+      <app-customer-profile-details
+        [facility]="facility$ | async"
+        [customer]="customer$ | async"
+        [systemAttributes]="systemAttributes$ | async"
+      ></app-customer-profile-details>
+    </div>
+  </div>
+  <div class="col-md-3" style="border-left: solid 1px #eee; height: 90vh;">
+    <div class="patients-by-rooms-today"></div>
+  </div>
+</div>

@@ -22,9 +22,11 @@ import { NgxDhis2PeriodFilterModule } from '@iapps/ngx-dhis2-period-filter';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { modules } from './modules';
-import { sharedComponents } from './components';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -44,6 +46,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatProgressBarModule,
+    MatStepperModule,
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
@@ -51,7 +54,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatMenuModule,
     MatListModule,
     NgxPaginationModule,
-    ...modules
+    ...modules,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -69,6 +74,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatProgressBarModule,
+    MatStepperModule,
     NgxDhis2OrgUnitFilterModule,
     NgxDhis2DataFilterModule,
     NgxDhis2PeriodFilterModule,
@@ -77,8 +83,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatMenuModule,
     NgxPaginationModule,
     ...modules,
-    ...sharedComponents
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  declarations: [...sharedComponents]
+  declarations: []
 })
 export class SharedModule {}

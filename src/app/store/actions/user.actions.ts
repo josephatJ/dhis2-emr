@@ -18,3 +18,8 @@ export const loadCurrentUserFail = createAction(
   '[User] Load Current User fail',
   props<{ error: ErrorMessage }>()
 );
+
+export const loadAttributeValues = createAction(
+  '[User] Load attribute values',
+  props<{ attributeValuesIds: any }>()
+);

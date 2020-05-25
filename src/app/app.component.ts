@@ -21,7 +21,7 @@ export class AppComponent {
     this.translate.use('en');
 
     // Set application title
-    this.setTitle('Interactive Reports');
+    this.setTitle('EMR DHIS2');
 
     if (Fn) {
       Fn.init({

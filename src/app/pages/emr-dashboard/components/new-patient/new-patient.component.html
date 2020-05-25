@@ -1,0 +1,197 @@
+<div novalidate id="{{ customerUID }}">
+  <!-- <form
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit(formGroup.value)"
+    class="form"
+  >
+    <div class="detail-type">
+      <h4>Basic details:</h4>
+      <hr />
+    </div>
+
+    <mat-checkbox formControlName="isEmergency">Emergency</mat-checkbox>
+    <br />
+
+    <mat-radio-group aria-label="Title" formControlName="title">
+      <mat-radio-button value="Mrs">Mrs</mat-radio-button>
+      <mat-radio-button value="Mr">Mr</mat-radio-button>
+      <mat-radio-button value="Ms">Miss</mat-radio-button>
+      <mat-radio-button value="Prof">Prof</mat-radio-button>
+    </mat-radio-group>
+    <br />
+
+    <mat-radio-group aria-label="Title" formControlName="gender">
+      <mat-radio-button value="F">Female</mat-radio-button>
+      <mat-radio-button value="M">Male</mat-radio-button>
+      <mat-error *ngIf="!gender.valid && gender.touched">
+        {{ nameAlert }}
+      </mat-error>
+    </mat-radio-group>
+    <br />
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Firtname" formControlName="firstname" />
+      <mat-error *ngIf="!firstname.valid && firstname.touched">
+        {{ nameAlert }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Middlename" formControlName="middlename" />
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Lastname" formControlName="lastname" />
+      <mat-error *ngIf="!lastname.valid && lastname.touched">
+        {{ nameAlert }}
+      </mat-error>
+    </mat-form-field>
+    <br />
+
+    <div class="detail-type">
+      <h4>Contacts:</h4>
+      <hr />
+    </div>
+    <button type="submit">Save</button>
+  </form> -->
+</div>
+<div>
+  <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{ !isLinear ? 'Enable linear mode' : 'Disable linear mode' }}
+  </button> -->
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Basic details (Demographic)</ng-template>
+        <mat-checkbox formControlName="isEmergency" id="toggle-linear"
+          >Emergency</mat-checkbox
+        >
+        <br />
+
+        <mat-radio-group aria-label="Title" formControlName="title">
+          <mat-radio-button value="Mrs">Mrs</mat-radio-button>
+          <mat-radio-button value="Mr">Mr</mat-radio-button>
+          <mat-radio-button value="Ms">Miss</mat-radio-button>
+          <mat-radio-button value="Prof">Prof</mat-radio-button>
+        </mat-radio-group>
+        <br />
+
+        <mat-radio-group aria-label="Title" formControlName="gender" required>
+          <mat-radio-button value="F">Female</mat-radio-button>
+          <mat-radio-button value="M">Male</mat-radio-button>
+          <mat-error *ngIf="!gender.valid && gender.touched">
+            {{ nameAlert }}
+          </mat-error>
+        </mat-radio-group>
+        <br />
+
+        <mat-form-field class="form-element">
+          <input matInput placeholder="Firtname" formControlName="firstname" />
+          <mat-error *ngIf="!firstname.valid && firstname.touched">
+            {{ nameAlert }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+          <input
+            matInput
+            placeholder="Middlename"
+            formControlName="middlename"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-element">
+          <input matInput placeholder="Lastname" formControlName="lastname" />
+          <mat-error *ngIf="!lastname.valid && lastname.touched">
+            {{ nameAlert }}
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field style="width: 20%;">
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            formControlName="dob"
+            [matDatepicker]="dob"
+            [min]="minDate"
+            [max]="maxDate"
+            [(ngModel)]="date"
+            (dateInput)="getDate($event.value)"
+          />
+          <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+          <mat-datepicker #dob></mat-datepicker>
+        </mat-form-field>
+        <br />
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Contacts</ng-template
+        ><mat-form-field>
+          <mat-label>Phone Number</mat-label>
+          <input
+            matInput
+            formControlName="phone"
+            placeholder="+255 766 460 759"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            formControlName="address"
+            placeholder="Ex. 1 Main St, New York, NY"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="insuranceFormGroup">
+      <form [formGroup]="insuranceFormGroup">
+        <ng-template matStepLabel>Insurance</ng-template>
+        <mat-form-field>
+          <mat-label>Insurance</mat-label>
+          <input
+            matInput
+            formControlName="insuranceId"
+            placeholder="8997882398293"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button
+          mat-button
+          (click)="Save(firstFormGroup, secondFormGroup, insuranceFormGroup)"
+        >
+          Save
+        </button>
+        <button
+          mat-button
+          (click)="Save(firstFormGroup, secondFormGroup, insuranceFormGroup)"
+        >
+          Save & Continue
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
