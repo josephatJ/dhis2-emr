@@ -17,6 +17,7 @@ import { CustomerProfileDetailsComponent } from './components/customer-profile-d
 import { VitalsComponent } from './components/vitals/vitals.component';
 import { VisitsSummaryComponent } from './components/visits-summary/visits-summary.component';
 import { RegisterCustomerComponent } from './containers/register-customer/register-customer.component';
+import { RenderCustomFormComponent } from './components/render-custom-form/render-custom-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { RegisterCustomerComponent } from './containers/register-customer/regist
     CustomerProfileDetailsComponent,
     VitalsComponent,
     VisitsSummaryComponent,
-    RegisterCustomerComponent
+    RegisterCustomerComponent,
+    RenderCustomFormComponent
   ],
   imports: [
     CommonModule,
