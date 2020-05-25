@@ -15,6 +15,8 @@ export class CustomerProfileDetailsComponent implements OnInit {
   @Input() systemAttributes: any;
   programId: string = 'K1QeifE9L7Q';
   customerBasicDetails: any;
+  isEncounterOpened: boolean = false;
+  encounterText: string = 'Add encounter (New visit)';
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
@@ -27,5 +29,12 @@ export class CustomerProfileDetailsComponent implements OnInit {
         dimensions: { ou: this.customer.id, program: this.programId }
       })
     );
+  }
+
+  setEncounter() {
+    this.isEncounterOpened = !this.isEncounterOpened;
+    if (this.isEncounterOpened) {
+      this.encounterText = 'Back';
+    }
   }
 }

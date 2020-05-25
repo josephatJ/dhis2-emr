@@ -7,11 +7,17 @@
       }}</a>
 
       <button mat-stroked-button (click)="setEncounter()" style="float: right">
-        Add encounter (New visit)
+        {{ encounterText }}
       </button>
     </div>
   </div>
   <div class="profile-contents row" style="margin-top:20px">
+    <div class="col-md-12" *ngIf="isEncounterOpened">
+      <app-encounters
+        [programId]="programId"
+        [clientId]="customer.id"
+      ></app-encounters>
+    </div>
     <div class="basic-info col-md-9">
       <div class="card" style="min-height: 160px;">
         <div class="card-body">
