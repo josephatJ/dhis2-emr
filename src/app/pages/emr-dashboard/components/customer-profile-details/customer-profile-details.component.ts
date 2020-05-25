@@ -14,6 +14,7 @@ export class CustomerProfileDetailsComponent implements OnInit {
   @Input() customer: any;
   @Input() systemAttributes: any;
   programId: string = 'K1QeifE9L7Q';
+  visitsStageId: string = 'z5WWDiAbnFr';
   customerBasicDetails: any;
   isEncounterOpened: boolean = false;
   encounterText: string = 'Add encounter (New visit)';

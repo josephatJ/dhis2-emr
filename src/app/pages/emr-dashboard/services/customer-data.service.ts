@@ -67,4 +67,12 @@ export class CustomerDataService {
     this.httpClient.post('schemas/organisationUnit', data);
     return this.httpClient.post('organisationUnits', data);
   }
+
+  loadprogramStageDetails(id): Observable<any> {
+    return this.httpClient.get(
+      'programStages/' +
+        id +
+        '.json?fields=id,name,formType,sortOrder,description,dataEntryForm[*],program,userGroupAccesses,programStageDataElements[id,dataElement[*]]'
+    );
+  }
 }

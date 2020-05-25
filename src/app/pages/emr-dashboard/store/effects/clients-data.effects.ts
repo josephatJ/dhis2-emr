@@ -4,7 +4,10 @@ import { CustomerDataService } from '../../services/customer-data.service';
 import {
   loadTrackedEntityInstance,
   addLoadedTrackedEntityInstance,
-  loadingTrackedEntityInstanceFails
+  loadingTrackedEntityInstanceFails,
+  loadProgramStageMetadata,
+  addLoadedProgramStageMetadata,
+  loadingProgramStageMetadataFails
 } from '../actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -31,6 +34,23 @@ export class ClientsDataEffects {
       )
     )
   );
+
+  programStageMetadata$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadProgramStageMetadata),
+      switchMap(action =>
+        this.clientsDataService.loadprogramStageDetails(action.stageId).pipe(
+          map(metadata =>
+            addLoadedProgramStageMetadata({
+              programStageMedatadata: metadata
+            })
+          ),
+          catchError(error => of(loadingProgramStageMetadataFails({ error })))
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private clientsDataService: CustomerDataService

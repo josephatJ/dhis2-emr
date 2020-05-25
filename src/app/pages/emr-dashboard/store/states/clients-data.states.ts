@@ -6,6 +6,12 @@ export interface ClientsDataState extends EntityState<any> {
   trackedEntityInstances: Array<any>;
   trackedEntityInstanceError: any;
   trackedEntityInstanceHasError: boolean;
+
+  loadingProgramStage: boolean;
+  loadedProgramStage: boolean;
+  programStageMetadata: Array<any>;
+  programStageError: any;
+  programStageHasError: boolean;
 }
 
 export const clientsDataAdapter: EntityAdapter<any> = createEntityAdapter<
@@ -17,5 +23,11 @@ export const initialClientsDataState = clientsDataAdapter.getInitialState({
   loadedTrackedEntityInstance: false,
   trackedEntityInstances: [],
   trackedEntityInstanceError: null,
-  trackedEntityInstanceHasError: false
+  trackedEntityInstanceHasError: false,
+
+  loadingProgramStage: false,
+  loadedProgramStage: false,
+  programStageMetadata: [],
+  programStageError: null,
+  programStageHasError: false
 });

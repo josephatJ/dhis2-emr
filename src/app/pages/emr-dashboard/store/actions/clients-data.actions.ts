@@ -14,3 +14,18 @@ export const loadingTrackedEntityInstanceFails = createAction(
   '[Tracked Entity Instance] loading fails',
   props<{ error: any }>()
 );
+
+export const loadProgramStageMetadata = createAction(
+  '[program stage] load program stage metadata',
+  props<{ stageId: string }>()
+);
+
+export const addLoadedProgramStageMetadata = createAction(
+  '[program stage] add loaded program stage metadata',
+  props<{ programStageMedatadata: any }>()
+);
+
+export const loadingProgramStageMetadataFails = createAction(
+  '[program stage] loading program stages metadata fails',
+  props<{ error: any }>()
+);

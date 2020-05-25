@@ -3,7 +3,10 @@ import { initialClientsDataState } from '../states/clients-data.states';
 import {
   loadTrackedEntityInstance,
   addLoadedTrackedEntityInstance,
-  loadingTrackedEntityInstanceFails
+  loadingTrackedEntityInstanceFails,
+  loadProgramStageMetadata,
+  addLoadedProgramStageMetadata,
+  loadingProgramStageMetadataFails
 } from '../actions';
 
 const reducer = createReducer(
@@ -27,6 +30,26 @@ const reducer = createReducer(
     trackedEntityInstanceHasError: true,
     loadingTrackedEntityInstance: false,
     loadedTrackedEntityInstance: true
+  })),
+  on(loadProgramStageMetadata, state => ({
+    ...state,
+    loadingProgramStage: true
+  })),
+  on(addLoadedProgramStageMetadata, (state, { programStageMedatadata }) => ({
+    ...state,
+    loadingProgramStage: false,
+    loadedProgramStage: true,
+    programStageMetadata: [
+      ...state.programStageMetadata,
+      programStageMedatadata
+    ]
+  })),
+  on(loadingProgramStageMetadataFails, (state, { error }) => ({
+    ...state,
+    programStageError: error,
+    programStageHasError: true,
+    loadingProgramStage: false,
+    loadedProgramStage: true
   }))
 );
 
