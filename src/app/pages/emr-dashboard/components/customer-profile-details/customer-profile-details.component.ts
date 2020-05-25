@@ -2,7 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { sanitizeCustomerProfileBasicDetails } from '../../helpers/sanitize-customer-profile.helper';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/store/reducers';
-import { loadTrackedEntityInstance } from '../../store/actions';
+import {
+  loadTrackedEntityInstance,
+  loadProgramStageMetadata
+} from '../../store/actions';
 
 @Component({
   selector: 'app-customer-profile-details',
@@ -33,6 +36,9 @@ export class CustomerProfileDetailsComponent implements OnInit {
   }
 
   setEncounter() {
+    this.store.dispatch(
+      loadProgramStageMetadata({ stageId: this.visitsStageId })
+    );
     this.isEncounterOpened = !this.isEncounterOpened;
     if (this.isEncounterOpened) {
       this.encounterText = 'Back';

@@ -1,1 +1,15 @@
-<p>encounters works!</p>
+<div>
+  <div
+    *ngIf="!(programStageLoaded$ | async) || !(programStageMetaData$ | async)"
+  >
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div *ngIf="(programStageLoaded$ | async) && (programStageMetaData$ | async)">
+    <app-render-custom-form
+      [stageId]="visitsStageId"
+      [clientId]="clientId"
+      [programId]="programId"
+      [programStageMetadata]="programStageMetaData$ | async"
+    ></app-render-custom-form>
+  </div>
+</div>

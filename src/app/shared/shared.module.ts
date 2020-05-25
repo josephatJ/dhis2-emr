@@ -28,6 +28,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import { NgxDhis2CustomFormsEntryModule } from '@iapps/ngx-dhis2-custom-forms-entry';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -56,7 +58,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     NgxPaginationModule,
     ...modules,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxDhis2CustomFormsEntryModule
   ],
   exports: [
     MatButtonModule,
@@ -84,7 +87,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     NgxPaginationModule,
     ...modules,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxDhis2CustomFormsEntryModule
   ],
   declarations: []
 })

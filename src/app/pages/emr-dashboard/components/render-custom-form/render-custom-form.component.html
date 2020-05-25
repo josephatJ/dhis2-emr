@@ -1,6 +1,15 @@
-<p>render-custom-form works!</p>
-
-<!-- <ngx-dhis2-custom-forms-entry [htmlCustomForm]="htmlCustomForm" [dataElements]="dataElements" [formType]="formType"
-    [formId]="formId" [elementsDataValues]="elementsDataValues"
-    (onCustomFormInputChange)="detailsOfTheChangedValue($event)" [statusUpdateOnDomElement]="statusArr">
-</ngx-dhis2-custom-forms-entry> -->
+<div *ngIf="programStageMetadata && dataElements">
+  <ngx-dhis2-custom-forms-entry
+    [htmlCustomForm]="programStageMetadata['dataEntryForm']['htmlCode']"
+    [dataElements]="dataElements"
+    [formType]="formType"
+    [formId]="stageId"
+    [elementsDataValues]="elementsDataValues"
+    (onCustomFormInputChange)="detailsOfTheChangedValue($event)"
+    [statusUpdateOnDomElement]="statusArr"
+  >
+  </ngx-dhis2-custom-forms-entry>
+</div>
+<div *ngIf="!programStageMetadata || !dataElements">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
