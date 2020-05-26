@@ -72,7 +72,7 @@ export class CustomerDataService {
     return this.httpClient.get(
       'programStages/' +
         id +
-        '.json?fields=id,name,formType,sortOrder,description,dataEntryForm[*],program,userGroupAccesses,programStageDataElements[id,dataElement[*]]'
+        '.json?fields=id,name,formType,sortOrder,description,dataEntryForm[*],program,userGroupAccesses,programStageDataElements[id,dataElement[*,optionSet[*,options[*]]]]'
     );
   }
 }

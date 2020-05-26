@@ -11,7 +11,7 @@ export class RenderCustomFormComponent implements OnInit {
   @Input() clientId: string; // =ou
   @Input() programId: string;
   @Input() programStageMetadata: any;
-  formType = 'tracker';
+  formType = 'event';
   dataElements: any;
   elementsDataValues: any = {};
   statusArr = [];

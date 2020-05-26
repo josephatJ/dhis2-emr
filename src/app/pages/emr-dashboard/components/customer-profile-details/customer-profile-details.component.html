@@ -2,9 +2,11 @@
   <div class="header">
     <div>
       <a routerLink="/clients">Customers</a> /
-      <a routerLink="/clients/{{ customerBasicDetails.uid }}">{{
-        customerBasicDetails.name
-      }}</a>
+      <a routerLink="/clients/{{ customerBasicDetails.uid }}"
+        >{{ customerBasicDetails.name }} ({{
+          customerBasicDetails.internalPatientId
+        }})</a
+      >
 
       <button mat-stroked-button (click)="setEncounter()" style="float: right">
         {{ encounterText }}
