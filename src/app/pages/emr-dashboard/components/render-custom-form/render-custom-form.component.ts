@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 @Component({
@@ -11,6 +11,8 @@ export class RenderCustomFormComponent implements OnInit {
   @Input() clientId: string; // =ou
   @Input() programId: string;
   @Input() programStageMetadata: any;
+  @Input() predefinedDataValues: any;
+  @Output() formData: EventEmitter<any> = new EventEmitter<any>();
   formType = 'event';
   dataElements: any;
   elementsDataValues: any = {};

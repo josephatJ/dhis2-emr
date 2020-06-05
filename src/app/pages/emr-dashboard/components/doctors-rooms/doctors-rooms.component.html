@@ -1,0 +1,13 @@
+<div>
+  <mat-form-field>
+    <mat-label>Select Doctors Room</mat-label>
+    <mat-select [(value)]="selectedRoom">
+      <mat-option
+        [value]="room"
+        (onSelectionChange)="onSelectionOfRoomChange(room)"
+        *ngFor="let room of doctorsRooms"
+        >{{ room.name }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</div>

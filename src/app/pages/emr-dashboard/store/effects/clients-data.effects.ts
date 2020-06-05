@@ -7,7 +7,10 @@ import {
   loadingTrackedEntityInstanceFails,
   loadProgramStageMetadata,
   addLoadedProgramStageMetadata,
-  loadingProgramStageMetadataFails
+  loadingProgramStageMetadataFails,
+  loadDoctorsRooms,
+  addLoadedDoctorsRooms,
+  loadingDoctorsRoomsFail
 } from '../actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -46,6 +49,18 @@ export class ClientsDataEffects {
             })
           ),
           catchError(error => of(loadingProgramStageMetadataFails({ error })))
+        )
+      )
+    )
+  );
+
+  doctorsRoomsData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadDoctorsRooms),
+      switchMap(action =>
+        this.clientsDataService.getDoctorsRoomsData(action.dimensions).pipe(
+          map(data => addLoadedDoctorsRooms({ data: data['events'] })),
+          catchError(error => of(loadingDoctorsRoomsFail({ error })))
         )
       )
     )

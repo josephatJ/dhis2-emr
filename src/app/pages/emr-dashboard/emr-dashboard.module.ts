@@ -18,6 +18,7 @@ import { VitalsComponent } from './components/vitals/vitals.component';
 import { VisitsSummaryComponent } from './components/visits-summary/visits-summary.component';
 import { RegisterCustomerComponent } from './containers/register-customer/register-customer.component';
 import { RenderCustomFormComponent } from './components/render-custom-form/render-custom-form.component';
+import { DoctorsRoomsComponent } from './components/doctors-rooms/doctors-rooms.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { RenderCustomFormComponent } from './components/render-custom-form/rende
     VitalsComponent,
     VisitsSummaryComponent,
     RegisterCustomerComponent,
-    RenderCustomFormComponent
+    RenderCustomFormComponent,
+    DoctorsRoomsComponent
   ],
   imports: [
     CommonModule,

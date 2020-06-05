@@ -1,15 +1,30 @@
 <div>
   <div
-    *ngIf="!(programStageLoaded$ | async) || !(programStageMetaData$ | async)"
+    *ngIf="
+      !(programStageLoaded$ | async) ||
+      !(programStageMetaData$ | async) ||
+      !((doctorsRooms$ | async) || (doctorsRooms$ | async)?.length == 0)
+    "
   >
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div *ngIf="(programStageLoaded$ | async) && (programStageMetaData$ | async)">
-    <app-render-custom-form
-      [stageId]="visitsStageId"
-      [clientId]="clientId"
-      [programId]="programId"
-      [programStageMetadata]="programStageMetaData$ | async"
-    ></app-render-custom-form>
+    <div *ngIf="(doctorsRooms$ | async) && (doctorsRooms$ | async)?.length > 0">
+      <h4>Doctor's Room</h4>
+      <app-doctors-rooms
+        [doctorsRoomsData]="doctorsRooms$ | async"
+        (doctorsRoomSelected)="onDoctorsRoomSelect($event)"
+      ></app-doctors-rooms>
+    </div>
+    <div *ngIf="selectedDoctorsRoom">
+      <app-render-custom-form
+        [stageId]="visitsStageId"
+        [clientId]="clientId"
+        [programId]="programId"
+        [programStageMetadata]="programStageMetaData$ | async"
+        [predefinedDataValues]="predefinedDataValues"
+        (formData)="onFormDataChange($event)"
+      ></app-render-custom-form>
+    </div>
   </div>
 </div>

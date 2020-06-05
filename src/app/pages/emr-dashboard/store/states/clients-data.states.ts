@@ -12,6 +12,13 @@ export interface ClientsDataState extends EntityState<any> {
   programStageMetadata: Array<any>;
   programStageError: any;
   programStageHasError: boolean;
+
+  // Doctors rooms
+  loadingDoctorsRooms: boolean;
+  loadedDoctorsRooms: boolean;
+  doctorsRoomsData: Array<any>;
+  doctorsRoomsError: any;
+  doctorsRoomsHasError: boolean;
 }
 
 export const clientsDataAdapter: EntityAdapter<any> = createEntityAdapter<
@@ -29,5 +36,12 @@ export const initialClientsDataState = clientsDataAdapter.getInitialState({
   loadedProgramStage: false,
   programStageMetadata: [],
   programStageError: null,
-  programStageHasError: false
+  programStageHasError: false,
+
+  loadingDoctorsRooms: false,
+  loadedDoctorsRooms: false,
+  doctorsRoomsData: [],
+  doctorsRoomsError: null,
+  doctorsRoomsHasError: false
 });
+//

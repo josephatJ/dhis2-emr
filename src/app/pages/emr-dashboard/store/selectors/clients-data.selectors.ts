@@ -34,3 +34,13 @@ export const getProgramStageMetadataByStageId = createSelector(
   (state: ClientsDataState, props) =>
     _.filter(state.programStageMetadata, { id: props.id })[0]
 );
+
+export const getLoadedDoctorsRoomsState = createSelector(
+  clientsDataState,
+  (state: ClientsDataState) => state.loadedDoctorsRooms
+);
+
+export const getDoctorsRooms = createSelector(
+  clientsDataState,
+  (state: ClientsDataState) => state.doctorsRoomsData
+);

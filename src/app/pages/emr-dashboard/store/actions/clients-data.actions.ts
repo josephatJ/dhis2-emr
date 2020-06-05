@@ -29,3 +29,18 @@ export const loadingProgramStageMetadataFails = createAction(
   '[program stage] loading program stages metadata fails',
   props<{ error: any }>()
 );
+
+export const loadDoctorsRooms = createAction(
+  '[Doctors rooms] load doctors rooms data',
+  props<{ dimensions: any }>()
+);
+
+export const addLoadedDoctorsRooms = createAction(
+  '[Doctors rooms] add loaded doctors rooms data',
+  props<{ data: Array<any> }>()
+);
+
+export const loadingDoctorsRoomsFail = createAction(
+  '[Doctors rooms] loading doctors rooms fail',
+  props<{ error: any }>()
+);

@@ -5,7 +5,8 @@ import { State } from 'src/app/store/reducers';
 import {
   getTrackedEntityInstancesByOu,
   getProgramStageLoadedState,
-  getProgramStageMetadataByStageId
+  getProgramStageMetadataByStageId,
+  getDoctorsRooms
 } from '../../store/selectors/clients-data.selectors';
 
 @Component({
@@ -20,6 +21,10 @@ export class EncountersComponent implements OnInit {
   trackedEntityInstance$: Observable<any>;
   programStageMetaData$: Observable<any>;
   programStageLoaded$: Observable<any>;
+  doctorsRooms$: Observable<any>;
+  selectedDoctorsRoom: any;
+  predefinedDataValues: any = {};
+
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
@@ -32,7 +37,23 @@ export class EncountersComponent implements OnInit {
       getProgramStageMetadataByStageId,
       { id: this.visitsStageId }
     );
+    this.doctorsRooms$ = this.store.select(getDoctorsRooms);
   }
+
+  onDoctorsRoomSelect(room) {
+    this.selectedDoctorsRoom = room;
+    this.predefinedDataValues['gpOibQ4vpEJ-dataElement'] = {
+      id: this.visitsStageId + '-gpOibQ4vpEJ-val',
+      value: room.name
+    };
+
+    this.predefinedDataValues['St9545mnYGo-dataElement'] = {
+      id: this.visitsStageId + '-St9545mnYGo-val',
+      value: room.cost
+    };
+  }
+
+  onFormDataChange(data) {}
 
   newVisit() {
     // API: events

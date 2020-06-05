@@ -6,7 +6,10 @@ import {
   loadingTrackedEntityInstanceFails,
   loadProgramStageMetadata,
   addLoadedProgramStageMetadata,
-  loadingProgramStageMetadataFails
+  loadingProgramStageMetadataFails,
+  loadDoctorsRooms,
+  addLoadedDoctorsRooms,
+  loadingDoctorsRoomsFail
 } from '../actions';
 
 const reducer = createReducer(
@@ -50,6 +53,23 @@ const reducer = createReducer(
     programStageHasError: true,
     loadingProgramStage: false,
     loadedProgramStage: true
+  })),
+  on(loadDoctorsRooms, state => ({
+    ...state,
+    loadingDoctorsRooms: true
+  })),
+  on(addLoadedDoctorsRooms, (state, { data }) => ({
+    ...state,
+    loadingDoctorsRooms: false,
+    loadedDoctorsRooms: true,
+    doctorsRoomsData: data
+  })),
+  on(loadingDoctorsRoomsFail, (state, { error }) => ({
+    ...state,
+    loadingDoctorsRooms: false,
+    loadedDoctorsRooms: true,
+    doctorsRoomsError: error,
+    doctorsRoomsHasError: true
   }))
 );
 

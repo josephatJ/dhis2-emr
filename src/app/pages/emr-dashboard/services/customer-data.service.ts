@@ -75,4 +75,14 @@ export class CustomerDataService {
         '.json?fields=id,name,formType,sortOrder,description,dataEntryForm[*],program,userGroupAccesses,programStageDataElements[id,dataElement[*,optionSet[*,options[*]]]]'
     );
   }
+
+  getDoctorsRoomsData(dimensions): Observable<any> {
+    return this.httpClient.get(
+      'events.json?program=' +
+        dimensions.program +
+        '&orgUnit=' +
+        dimensions.orgUnit +
+        '&order=eventDate~desc&totalPages=true'
+    );
+  }
 }
